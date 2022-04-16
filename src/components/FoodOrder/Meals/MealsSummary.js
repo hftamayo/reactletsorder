@@ -3,14 +3,15 @@ import classes from './MealsSummary.module.css';
 const MealsSummary =() => {
     return(
         <section className={classes.summary}>
-            <h2>Delicious food, delivery too you</h2>
+            <h2>Let's Order Pupusas!!!</h2>
             <p>
-                Choose your favorite meal from our broad selection of available meals
-                and enjoy a delicious lunch or dinner at home.
+                Our Client: Pupusas La Paciencia is offering to you the best Pupusas
+                in Town, what are you waiting for??? Let's Order!
             </p>
             <p>
-                All our meals are cooked with high-quality ingredients, just in time and 
-                of course by experienced chefs!
+                Our dishes are prepared with the best organic ingredients from El Salvador,
+                you may find nutritional facts in any product, we think in our customers so you may
+                customized almost any ingredient of your favorite specialite.
             </p>
         </section>
     );
