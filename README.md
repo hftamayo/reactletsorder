@@ -5,6 +5,10 @@ Let's Order is an Application to buy and sell products and services.
 ## Concept ##
 The intention is not to be the next Super-App, we believe each business has to know their clients and their needs, that's why Let's Order helps to strength that relationship building a permanent channel of communication so the clients can receive what they are expecting and the business can offer their products and services specially designed.
 
+## Disclaimer for the Developer ##
+This is a demo project, my intention is to practice my code skills and apply routines of automated tests, moreover, it is to refactor the code across future version and put an extra eye on pitfalls that developers left behind and it becomes security holes.
+
+
 ## Version 1 specs ##
 
 ### Technical Stack ###
