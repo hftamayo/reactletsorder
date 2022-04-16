@@ -22,6 +22,9 @@ The intention is not to be the next Super-App, we believe each business has to k
 ## Proof of Concept ##
 
 
+## The coding process ##
+[I've uploaded to Youtube the coding process of V1](https://www.youtube.com/playlist?list=PLsQR_Tmsj29n1PgTcssiHI2AKNOi33i4D)
+
 ## Comming up (version 2) ##
 * Front End: React - Redux, User's Login, Place the order
 * Back End: Node JS (Express)

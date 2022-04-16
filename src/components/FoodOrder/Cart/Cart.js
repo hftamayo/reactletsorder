@@ -35,7 +35,7 @@ const Cart = (props) => {
 
   const submitOrderHandler = async (userData) => {
     setIsSubmitting(true);
-    //await fetch("https://movieserp-default-rtdb.firebaseio.com/orders.json", {
+    /*
     await fetch("http://localhost:8080/api/orders", {  
       credentials: "include",    
       method: "POST",
@@ -45,12 +45,14 @@ const Cart = (props) => {
 //        'Access-Control-Allow-Origin': '*',
         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MUBmYWtlbWFpbC5jb20iLCJleHAiOjE2MzI3NTAzODYsImlhdCI6MTYzMjcxNDM4Nn0.2tvdnG9B0HdpUpV0xsOKKaATFkyuNVKMpzYE8sXBFtw',
       }
-      /* headers: {'Access-Control-Allow-Origin': "https://movieserp-default-rtdb.firebaseio.com/orders.json"},
+      */
+
+    await fetch("https://movieserp-default-rtdb.firebaseio.com/orders.json", {
+      headers: {'Access-Control-Allow-Origin': "https://movieserp-default-rtdb.firebaseio.com/orders.json"},
       BODY: JSON.stringify({
-        user: userData,
+        user: pruebaData,
         orderedItems: cartCtx.items,
       }),
-      */
     });
     setIsSubmitting(false);
     setDidSubmit(true);
