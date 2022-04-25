@@ -6,6 +6,7 @@ import CartContext from "../store/cart-context";
 import Checkout from "./Checkout";
 
 const Cart = (props) => {
+  /*
   const pruebaData = {
     "ordersDate": "26-09-2021",
     "ordersStatus": "ON KITCHEN",
@@ -13,6 +14,7 @@ const Cart = (props) => {
     "idPayment": "1",        
     "idUser": "1"
   };
+  */
   const [isCheckout, setIsCheckout] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
@@ -33,9 +35,8 @@ const Cart = (props) => {
     setIsCheckout(true);
   };
 
-  const submitOrderHandler = async (pruebaData) => {
-    setIsSubmitting(true);
-    /*
+  const submitOrderHandler = async (userData) => {
+        /*
     await fetch("http://localhost:8080/api/orders", {  
       credentials: "include",    
       method: "POST",
@@ -45,12 +46,13 @@ const Cart = (props) => {
 //        'Access-Control-Allow-Origin': '*',
         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MUBmYWtlbWFpbC5jb20iLCJleHAiOjE2MzI3NTAzODYsImlhdCI6MTYzMjcxNDM4Nn0.2tvdnG9B0HdpUpV0xsOKKaATFkyuNVKMpzYE8sXBFtw',
       }
-      */
+      */ 
 
+    setIsSubmitting(true);
     await fetch("https://movieserp-default-rtdb.firebaseio.com/orders.json", {
-      headers: {'Access-Control-Allow-Origin': "https://movieserp-default-rtdb.firebaseio.com/orders.json"},
+      method: 'POST',
       BODY: JSON.stringify({
-        user: pruebaData,
+        user: userData,
         orderedItems: cartCtx.items,
       }),
     });
@@ -103,6 +105,7 @@ const Cart = (props) => {
   );
 
   const isSubmittingModalContent = <p>Sending order data...</p>;
+  /* incluir transaccion para verificar si es exitoso o hubo algun error */
 
   const didSubmitModalContent = (
     <React.Fragment>
