@@ -9,7 +9,7 @@ const defaultCartState = {
 //en una funcion reducer siempre tenemos los 2 parametros:
 //state y action
 const cartReducer = (state, action) => {
-  if (action.type == "ADD") {
+  if (action.type === "ADD") {
     const updatedTotalAmount =
       state.totalAmount + action.item.price * action.item.amount;
     const existingCartItemIndex = state.items.findIndex(

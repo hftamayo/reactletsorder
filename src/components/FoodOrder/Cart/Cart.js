@@ -33,7 +33,7 @@ const Cart = (props) => {
     setIsCheckout(true);
   };
 
-  const submitOrderHandler = async (userData) => {
+  const submitOrderHandler = async (pruebaData) => {
     setIsSubmitting(true);
     /*
     await fetch("http://localhost:8080/api/orders", {  
