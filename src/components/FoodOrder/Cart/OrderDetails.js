@@ -1,23 +1,28 @@
 import { useRef, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import classes from "./Checkout.module.css";
+import classes from "./Orderdetails.module.css";
 
 const isEmpty = (value) => value.trim() === "";
 const isNotNineChars = (value) => value.trim().length !== 9;
+const paymentMethods = ["Cash", "Credit", "Crypto"];
 
-const Checkout = (props) => {
-  const paymentMethods = ["Cash", "Credit", "Crypto"];
-
+const OrderDetails = (props) => {
   const [formInputsValidity, setFormInputsValidity] = useState({
     clientName: true,
     clientCellPhone: true,
+    streetDeliveryAddress: true,
+    cityDeliveryAddress: true,
+    postalCodeDeliveryAddress: true,
     ordersDeliveryAddress: true,
   });
 
   //estos objetos sirven para no capturar todos los keystrokes durante dataInput
   const clientNameRef = useRef();
   const clientCellPhoneRef = useRef();
+  const streetDeliveryAddressRef = useRef();
+  const cityDeliveryAddressRef = useRef();
+  const postalCodeDeliveryAddressRef = useRef();
   const ordersDeliveryAddressRef = useRef();
 
   const ConfirmHandler = (event) => {
@@ -26,21 +31,42 @@ const Checkout = (props) => {
     const enteredName = clientNameRef.current.value;
     const enteredCellPhone = clientCellPhoneRef.current.value;
     const enteredOrdersDeliveryAddress = ordersDeliveryAddressRef.current.value;
+    const enteredStreetDeliveryAddress = streetDeliveryAddressRef.current.value;
+    const enteredCityDeliveryAddress = cityDeliveryAddressRef.current.value;
+    const enteredPostalCodeDeliveryAddress =
+      postalCodeDeliveryAddressRef.current.value;
 
     const enteredNameIsValid = !isEmpty(enteredName);
     const enteredCellPhoneIsValid = !isNotNineChars(enteredCellPhone);
-    const enteredOrdersDeliveryAddressIsValid = !isEmpty(enteredOrdersDeliveryAddress);
+    const enteredOrdersDeliveryAddressIsValid = !isEmpty(
+      enteredOrdersDeliveryAddress
+    );
+    const enteredStreetDeliveryAddressIsValid = !isEmpty(
+      enteredStreetDeliveryAddress
+    );
+    const enteredCityDeliveryAddressIsValid = !isEmpty(
+      enteredCityDeliveryAddress
+    );
+    const enteredPostalCodeDeliveryAddressIsValid = !isEmpty(
+      enteredPostalCodeDeliveryAddress
+    );
 
     setFormInputsValidity({
       clientName: enteredNameIsValid,
       clientCellPhone: enteredCellPhoneIsValid,
       ordersDeliveryAddress: enteredOrdersDeliveryAddressIsValid,
+      streetDeliveryAddress: enteredStreetDeliveryAddressIsValid,
+      cityDeliveryAddress: enteredCityDeliveryAddressIsValid,
+      postalCodeDeliveryAddress: enteredPostalCodeDeliveryAddressIsValid,
     });
 
     const formIsValid =
       enteredNameIsValid &&
       enteredCellPhoneIsValid &&
-      enteredOrdersDeliveryAddressIsValid;
+      enteredOrdersDeliveryAddressIsValid &&
+      enteredStreetDeliveryAddressIsValid &&
+      enteredCityDeliveryAddressIsValid &&
+      enteredPostalCodeDeliveryAddressIsValid;
 
     if (!formIsValid) {
       return;
@@ -50,6 +76,9 @@ const Checkout = (props) => {
       clientName: enteredName,
       clientCellPhone: enteredCellPhone,
       ordersDeliveryAddress: enteredOrdersDeliveryAddress,
+      streetDeliveryAddress: enteredStreetDeliveryAddress,
+      cityDeliveryAddress: enteredCityDeliveryAddress,
+      postalCodeDeliveryAddress: enteredPostalCodeDeliveryAddress,
     });
   };
 
@@ -62,6 +91,15 @@ const Checkout = (props) => {
   const delivAddressControlClasses = `${classes.control} ${
     formInputsValidity.ordersDeliveryAddress ? "" : classes.invalid
   }`;
+  const cityDeliveryAddressControlClasses = `${classes.control} ${
+    formInputsValidity.cityDeliveryAddress ? "" : classes.invalid
+  }`;
+  const streetDeliveryAddressControlClasses = `${classes.control} ${
+    formInputsValidity.streetDeliveryAddress ? "" : classes.invalid
+  }`;
+  const postalCodeDeliveryAddressControlClasses = `${classes.control} ${
+    formInputsValidity.postalCodeDeliveryAddress ? "" : classes.invalid
+  }`;
 
   return (
     <form className={classes.form} onSubmit={ConfirmHandler}>
@@ -71,8 +109,6 @@ const Checkout = (props) => {
           type="text"
           id="clientName"
           ref={clientNameRef}
-          value="Fred Flinstone"
-          readOnly
         />
         {!formInputsValidity.clientName && <p>Please Enter a valid Name</p>}
       </div>
@@ -82,8 +118,6 @@ const Checkout = (props) => {
           type="text"
           id="clientCellPhone"
           ref={clientCellPhoneRef}
-          value="1234-7890"
-          readOnly
         />
         {!formInputsValidity.clientCellPhone && (
           <p>Please Enter a 8 digits numbers</p>
@@ -100,6 +134,40 @@ const Checkout = (props) => {
           <p>Please Enter a valid address</p>
         )}
       </div>
+      <div className={cityDeliveryAddressControlClasses}>
+        <label htmlFor="cityDeliveryAddress">City Delivery Address *</label>
+        <input
+          type="text"
+          id="cityDeliveryAddress"
+          ref={cityDeliveryAddressRef}
+        />
+        {!formInputsValidity.cityDeliveryAddress && (
+          <p>Please Enter a valid city name</p>
+        )}
+      </div>
+      <div className={streetDeliveryAddressControlClasses}>
+        <label htmlFor="streetDeliveryAddress">Street Delivery Address *</label>
+        <input
+          type="text"
+          id="streetDeliveryAddress"
+          ref={streetDeliveryAddressRef}
+        />
+        {!formInputsValidity.streetDeliveryAddress && (
+          <p>Please Enter a valid street name</p>
+        )}
+      </div>      
+      <div className={postalCodeDeliveryAddressControlClasses}>
+        <label htmlFor="postalCodeDeliveryAddress">Postal Code Delivery Address *</label>
+        <input
+          type="text"
+          id="postalCodeDeliveryAddress"
+          ref={postalCodeDeliveryAddressRef}
+        />
+        {!formInputsValidity.postalCodeDeliveryAddress && (
+          <p>Please Enter a valid Postal Code</p>
+        )}
+      </div>            
+
       <div>
         <label htmlFor="clientMethodPayment">Method of Payment *</label>
         <Autocomplete
@@ -125,4 +193,4 @@ const Checkout = (props) => {
   );
 };
 
-export default Checkout;
+export default OrderDetails;

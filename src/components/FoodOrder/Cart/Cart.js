@@ -3,7 +3,7 @@ import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
 import classes from "./Cart.module.css";
 import CartContext from "../store/cart-context";
-import Checkout from "./Checkout";
+import OrderDetails from "./OrderDetails";
 
 const Cart = (props) => {
   /*
@@ -98,7 +98,7 @@ const Cart = (props) => {
       </div>
 
       {isCheckout && (
-        <Checkout onConfirm={submitOrderHandler} onCancel={props.onClose} />
+        <OrderDetails onConfirm={submitOrderHandler} onCancel={props.onClose} />
       )}
       {!isCheckout && modalActions}
     </React.Fragment>
