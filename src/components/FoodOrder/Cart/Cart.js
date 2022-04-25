@@ -6,6 +6,11 @@ import CartContext from "../store/cart-context";
 import OrderDetails from "./OrderDetails";
 
 const Cart = (props) => {
+
+  const userData = {
+    "clientName": "Marvin the Martian",
+    "clientId": "123"
+  };
   /*
   const pruebaData = {
     "ordersDate": "26-09-2021",
