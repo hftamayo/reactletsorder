@@ -107,6 +107,7 @@ const OrderDetails = (props) => {
         <label htmlFor="clientName">Client's Name</label>
         <input
           type="text"
+          autoComplete="off"
           id="clientName"
           ref={clientNameRef}
         />
@@ -117,6 +118,7 @@ const OrderDetails = (props) => {
         <input
           type="text"
           id="clientCellPhone"
+          autocomplete="off"
           ref={clientCellPhoneRef}
         />
         {!formInputsValidity.clientCellPhone && (
@@ -128,6 +130,7 @@ const OrderDetails = (props) => {
         <input
           type="text"
           id="ordersDeliveryAddress"
+          autocomplete="off"
           ref={ordersDeliveryAddressRef}
         />
         {!formInputsValidity.ordersDeliveryAddress && (
@@ -139,6 +142,7 @@ const OrderDetails = (props) => {
         <input
           type="text"
           id="cityDeliveryAddress"
+          autocomplete="off"
           ref={cityDeliveryAddressRef}
         />
         {!formInputsValidity.cityDeliveryAddress && (
@@ -150,23 +154,27 @@ const OrderDetails = (props) => {
         <input
           type="text"
           id="streetDeliveryAddress"
+          autocomplete="off"
           ref={streetDeliveryAddressRef}
         />
         {!formInputsValidity.streetDeliveryAddress && (
           <p>Please Enter a valid street name</p>
         )}
-      </div>      
+      </div>
       <div className={postalCodeDeliveryAddressControlClasses}>
-        <label htmlFor="postalCodeDeliveryAddress">Postal Code Delivery Address *</label>
+        <label htmlFor="postalCodeDeliveryAddress">
+          Postal Code Delivery Address *
+        </label>
         <input
           type="text"
           id="postalCodeDeliveryAddress"
+          autocomplete="off"
           ref={postalCodeDeliveryAddressRef}
         />
         {!formInputsValidity.postalCodeDeliveryAddress && (
           <p>Please Enter a valid Postal Code</p>
         )}
-      </div>            
+      </div>
 
       <div>
         <label htmlFor="clientMethodPayment">Method of Payment *</label>
@@ -177,7 +185,6 @@ const OrderDetails = (props) => {
             <TextField
               id="clientMethodPayment"
               {...params}
-              label="Choose one:"
               variant="outlined"
             />
           )}

@@ -43,7 +43,7 @@ const Cart = (props) => {
     setIsSubmitting(true);
     await fetch("https://movieserp-default-rtdb.firebaseio.com/orders.json", {
       method: 'POST',
-      BODY: JSON.stringify({
+      body: JSON.stringify({
         user: userData,
         orderedItems: cartCtx.items,
       }),
