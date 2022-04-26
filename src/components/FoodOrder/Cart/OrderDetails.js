@@ -192,7 +192,7 @@ const OrderDetails = (props) => {
       </div>
       <div className={classes.actions}>
         <button type="button" onClick={props.onCancel}>
-          Cancel
+          Close
         </button>
         <button>Confirm Order</button>
       </div>
