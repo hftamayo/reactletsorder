@@ -7,19 +7,6 @@ import OrderDetails from "./OrderDetails";
 
 const Cart = (props) => {
 
-  const userData = {
-    "clientName": "Marvin the Martian",
-    "clientId": "123"
-  };
-  /*
-  const pruebaData = {
-    "ordersDate": "26-09-2021",
-    "ordersStatus": "ON KITCHEN",
-    "ordersDelivaddress": "Comunidad El Pino",
-    "idPayment": "1",        
-    "idUser": "1"
-  };
-  */
   const [isCheckout, setIsCheckout] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
