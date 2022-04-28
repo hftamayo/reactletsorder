@@ -67,30 +67,34 @@ const Cart = (props) => {
     </ul>
   );
 
+  const cartContentButtons = (
+    <React.Fragment>
+      <button className={classes["button--alt"]} onClick={props.onClose}>
+        Close
+      </button>
+      <button className={classes["button--alt"]} onClick={orderHandler}>
+        Order's Details
+      </button>
+    </React.Fragment>
+  );
+
+  const orderDetailsButtons = (
+    <React.Fragment>
+      <button className={classes["button--alt"]} onClick={props.onClose}>
+        Close
+      </button>
+      <button className={classes["button--alt"]} onClick={orderHandler}>
+        Cart's Content
+      </button>
+      <button className={classes["button--alt"]} onClick={orderHandler}>
+        Order's Checkout
+      </button>
+    </React.Fragment>
+  );
+
   const modalActions = (
     <div className={classes.actions}>
-      {!isCheckout && (
-          <button className={classes["button--alt"]} onClick={props.onClose}>
-          Close
-        </button>)}
-        {!isCheckout && hasItems && (
-          <button className={classes.button} onClick={orderHandler}>
-            Order's details
-          </button>
-        )}
-
-      {isCheckout && (
-        <button className={classes["button--alt"]} onClick={props.onClose}>
-        Close
-      </button> &&       
-        <button className={classes["button--alt"]} onClick={props.onPrevious}>
-        Cart Content
-      </button>)}
-      {isCheckout && hasItems && (
-        <button className={classes.button} onClick={orderHandler}>
-          Place Order
-        </button>
-      )}
+      {!isCheckout && hasItems ? cartContentButtons : orderDetailsButtons}
     </div>
   );
 
