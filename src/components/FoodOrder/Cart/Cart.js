@@ -26,6 +26,10 @@ const Cart = (props) => {
     setIsCheckout(true);
   };
 
+  const showCartHandler = () => {
+    setIsCheckout(false);
+  }
+
   const submitOrderHandler = async (userData) => {
     /*
     await fetch("http://localhost:8080/api/orders", {  
@@ -83,11 +87,8 @@ const Cart = (props) => {
       <button className={classes["button--alt"]} onClick={props.onClose}>
         Close
       </button>
-      <button className={classes["button--alt"]} onClick={orderHandler}>
+      <button className={classes["button--alt"]} onClick={showCartHandler}>
         Cart's Content
-      </button>
-      <button className={classes["button--alt"]} onClick={orderHandler}>
-        Order's Checkout
       </button>
     </React.Fragment>
   );
@@ -134,7 +135,8 @@ const Cart = (props) => {
 
   return (
     <Modal onClose={props.onClose}>
-      {!isSubmitting && !didSubmit && CartModalContent}
+      {!isSubmitting && !didSubmit && !isCheckout && CartModalContent}
+      {isCheckout && OrderDetailsModalContent}
       {isSubmitting && isSubmittingModalContent}
       {!isSubmitting && didSubmit && didSubmitModalContent}
     </Modal>
