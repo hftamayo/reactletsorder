@@ -6,7 +6,6 @@ import CartContext from "../store/cart-context";
 import OrderDetails from "./OrderDetails";
 
 const Cart = (props) => {
-
   const [isCheckout, setIsCheckout] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
@@ -20,7 +19,7 @@ const Cart = (props) => {
   };
 
   const cartItemAddHandler = (item) => {
-    cartCtx.addItem({...item, amount: 1});
+    cartCtx.addItem({ ...item, amount: 1 });
   };
 
   const orderHandler = () => {
@@ -28,7 +27,7 @@ const Cart = (props) => {
   };
 
   const submitOrderHandler = async (userData) => {
-        /*
+    /*
     await fetch("http://localhost:8080/api/orders", {  
       credentials: "include",    
       method: "POST",
@@ -38,11 +37,11 @@ const Cart = (props) => {
 //        'Access-Control-Allow-Origin': '*',
         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MUBmYWtlbWFpbC5jb20iLCJleHAiOjE2MzI3NTAzODYsImlhdCI6MTYzMjcxNDM4Nn0.2tvdnG9B0HdpUpV0xsOKKaATFkyuNVKMpzYE8sXBFtw',
       }
-      */ 
+      */
 
     setIsSubmitting(true);
     await fetch("https://movieserp-default-rtdb.firebaseio.com/orders.json", {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify({
         user: userData,
         orderedItems: cartCtx.items,
@@ -70,12 +69,26 @@ const Cart = (props) => {
 
   const modalActions = (
     <div className={classes.actions}>
-      <button className={classes["button--alt"]} onClick={props.onClose}>
+      {!isCheckout && (
+          <button className={classes["button--alt"]} onClick={props.onClose}>
+          Close
+        </button>)}
+        {!isCheckout && hasItems && (
+          <button className={classes.button} onClick={orderHandler}>
+            Order's details
+          </button>
+        )}
+
+      {isCheckout && (
+        <button className={classes["button--alt"]} onClick={props.onClose}>
         Close
-      </button>
-      {hasItems && (
+      </button> &&       
+        <button className={classes["button--alt"]} onClick={props.onPrevious}>
+        Cart Content
+      </button>)}
+      {isCheckout && hasItems && (
         <button className={classes.button} onClick={orderHandler}>
-          Order's details
+          Place Order
         </button>
       )}
     </div>
@@ -88,11 +101,16 @@ const Cart = (props) => {
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
+      {modalActions}
+    </React.Fragment>
+  );
 
+  const OrderDetailsModalContent = (
+    <React.Fragment>
       {isCheckout && (
         <OrderDetails onConfirm={submitOrderHandler} onCancel={props.onClose} />
       )}
-      {!isCheckout && modalActions}
+      {modalActions}
     </React.Fragment>
   );
 
