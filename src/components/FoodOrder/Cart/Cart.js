@@ -52,6 +52,7 @@ const Cart = (props) => {
       }),
     });
     setIsSubmitting(false);
+    setIsCheckout(false);    
     setDidSubmit(true);
     cartCtx.clearCart();
   };
