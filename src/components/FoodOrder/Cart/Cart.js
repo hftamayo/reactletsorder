@@ -9,6 +9,7 @@ const Cart = (props) => {
   const [isCheckout, setIsCheckout] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
+  const [isErrorOnSentOrder, setIsErrorOnSentOrder] = useState(false);
   const cartCtx = useContext(CartContext);
 
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
@@ -28,7 +29,11 @@ const Cart = (props) => {
 
   const showCartHandler = () => {
     setIsCheckout(false);
-  }
+  };
+
+  const errorOnSentOrderHandler = () => {
+    setIsErrorOnSentOrder(true);
+  };
 
   const submitOrderHandler = async (userData) => {
     /*
@@ -44,17 +49,24 @@ const Cart = (props) => {
       */
 
     setIsSubmitting(true);
-    await fetch("https://movieserp-default-rtdb.firebaseio.com/orders.json", {
-      method: "POST",
-      body: JSON.stringify({
-        user: userData,
-        orderedItems: cartCtx.items,
-      }),
-    });
-    setIsSubmitting(false);
-    setIsCheckout(false);    
-    setDidSubmit(true);
-    cartCtx.clearCart();
+    const response = await fetch(
+      "https://movieserp-default-rtdb.firebaseio.com/orders.json",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          user: userData,
+          orderedItems: cartCtx.items,
+        }),
+      }
+    );
+    if (!response.ok) {
+      errorOnSentOrderHandler();
+    } else {
+      setIsSubmitting(false);
+      setIsCheckout(false);
+      setDidSubmit(true);
+      cartCtx.clearCart();
+    }
   };
 
   const cartItems = (
@@ -123,6 +135,18 @@ const Cart = (props) => {
   const isSubmittingModalContent = <p>Sending order data...</p>;
   /* incluir transaccion para verificar si es exitoso o hubo algun error */
 
+  const errorOnSentOrderModalContent = (
+    <React.Fragment>
+      <p>Process failed. An error occurs sending the order!</p>
+      <div className={classes.actions}>
+        <button className={classes.button} onClick={props.onClose}>
+          Close
+        </button>
+      </div>
+    </React.Fragment>
+  );  
+
+
   const didSubmitModalContent = (
     <React.Fragment>
       <p>Successfully sent the order!</p>
@@ -139,6 +163,7 @@ const Cart = (props) => {
       {!isSubmitting && !didSubmit && !isCheckout && CartModalContent}
       {isCheckout && OrderDetailsModalContent}
       {isSubmitting && isSubmittingModalContent}
+      {isErrorOnSentOrder && errorOnSentOrderModalContent}
       {!isSubmitting && didSubmit && didSubmitModalContent}
     </Modal>
   );
