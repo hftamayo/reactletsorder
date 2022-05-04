@@ -15,6 +15,7 @@ const OrderDetails = (props) => {
     cityDeliveryAddress: true,
     postalCodeDeliveryAddress: true,
     ordersDeliveryAddress: true,
+    clientMethodPayment: true,
   });
 
   //estos objetos sirven para no capturar todos los keystrokes durante dataInput
@@ -24,6 +25,7 @@ const OrderDetails = (props) => {
   const cityDeliveryAddressRef = useRef();
   const postalCodeDeliveryAddressRef = useRef();
   const ordersDeliveryAddressRef = useRef();
+  const clientMethodPaymentRef = useRef();
 
   const ConfirmHandler = (event) => {
     event.preventDefault();
@@ -35,6 +37,7 @@ const OrderDetails = (props) => {
     const enteredCityDeliveryAddress = cityDeliveryAddressRef.current.value;
     const enteredPostalCodeDeliveryAddress =
       postalCodeDeliveryAddressRef.current.value;
+    const enteredClientMethodPayment = clientMethodPaymentRef.current.value;
 
     const enteredNameIsValid = !isEmpty(enteredName);
     const enteredCellPhoneIsValid = !isNotNineChars(enteredCellPhone);
@@ -50,6 +53,9 @@ const OrderDetails = (props) => {
     const enteredPostalCodeDeliveryAddressIsValid = !isEmpty(
       enteredPostalCodeDeliveryAddress
     );
+    const enteredClientMethodPaymentIsValid = !isEmpty(
+      enteredClientMethodPayment
+    );
 
     setFormInputsValidity({
       clientName: enteredNameIsValid,
@@ -58,6 +64,7 @@ const OrderDetails = (props) => {
       streetDeliveryAddress: enteredStreetDeliveryAddressIsValid,
       cityDeliveryAddress: enteredCityDeliveryAddressIsValid,
       postalCodeDeliveryAddress: enteredPostalCodeDeliveryAddressIsValid,
+      clientMethodPayment: enteredClientMethodPaymentIsValid,
     });
 
     const formIsValid =
@@ -66,7 +73,8 @@ const OrderDetails = (props) => {
       enteredOrdersDeliveryAddressIsValid &&
       enteredStreetDeliveryAddressIsValid &&
       enteredCityDeliveryAddressIsValid &&
-      enteredPostalCodeDeliveryAddressIsValid;
+      enteredPostalCodeDeliveryAddressIsValid &&
+      enteredClientMethodPaymentIsValid;
 
     if (!formIsValid) {
       return;
@@ -79,6 +87,7 @@ const OrderDetails = (props) => {
       streetDeliveryAddress: enteredStreetDeliveryAddress,
       cityDeliveryAddress: enteredCityDeliveryAddress,
       postalCodeDeliveryAddress: enteredPostalCodeDeliveryAddress,
+      clientMethodPayment: enteredClientMethodPayment,
     });
   };
 
@@ -100,6 +109,9 @@ const OrderDetails = (props) => {
   const postalCodeDeliveryAddressControlClasses = `${classes.control} ${
     formInputsValidity.postalCodeDeliveryAddress ? "" : classes.invalid
   }`;
+  const clientMethodPaymentControlClasses = `${classes.control} ${
+    formInputsValidity.clientMethodPayment ? "" : classes.invalid
+  }`;
 
   return (
     <form className={classes.form} onSubmit={ConfirmHandler}>
@@ -118,7 +130,7 @@ const OrderDetails = (props) => {
         <input
           type="text"
           id="clientCellPhone"
-          autocomplete="off"
+          autoComplete="off"
           ref={clientCellPhoneRef}
         />
         {!formInputsValidity.clientCellPhone && (
@@ -130,7 +142,7 @@ const OrderDetails = (props) => {
         <input
           type="text"
           id="ordersDeliveryAddress"
-          autocomplete="off"
+          autoComplete="off"
           ref={ordersDeliveryAddressRef}
         />
         {!formInputsValidity.ordersDeliveryAddress && (
@@ -142,7 +154,7 @@ const OrderDetails = (props) => {
         <input
           type="text"
           id="cityDeliveryAddress"
-          autocomplete="off"
+          autoComplete="off"
           ref={cityDeliveryAddressRef}
         />
         {!formInputsValidity.cityDeliveryAddress && (
@@ -154,7 +166,7 @@ const OrderDetails = (props) => {
         <input
           type="text"
           id="streetDeliveryAddress"
-          autocomplete="off"
+          autoComplete="off"
           ref={streetDeliveryAddressRef}
         />
         {!formInputsValidity.streetDeliveryAddress && (
@@ -168,29 +180,27 @@ const OrderDetails = (props) => {
         <input
           type="text"
           id="postalCodeDeliveryAddress"
-          autocomplete="off"
+          autoComplete="off"
           ref={postalCodeDeliveryAddressRef}
         />
         {!formInputsValidity.postalCodeDeliveryAddress && (
           <p>Please Enter a valid Postal Code</p>
         )}
       </div>
-
-      <div>
+      <div className={clientMethodPaymentControlClasses}>
         <label htmlFor="clientMethodPayment">Method of Payment *</label>
         <Autocomplete
+          id="clientMethodPayment"
           options={paymentMethods}
           style={{ width: 300 }}
           autoHighlight
           renderInput={(params) => (
-            <TextField
-              id="clientMethodPayment"
-              {...params}
-              variant="outlined"
-              autocomplete="off"
-            />
+            <TextField {...params} variant="outlined" autoComplete="off" />
           )}
         />
+        {!formInputsValidity.clientMethodPayment && (
+          <p>Please choose a method of payment</p>
+        )}
       </div>
 
       <div className={classes.actions}>
