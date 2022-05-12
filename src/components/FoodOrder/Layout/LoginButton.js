@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import CartIcon from "../Cart/CartIcon";
+import LoginIcon from "../Login/LoginIcon";
 import classes from "./HeaderCartButton.module.css";
 
 const LoginButton = (props) => {
@@ -22,7 +22,7 @@ const LoginButton = (props) => {
   return (
     <button className={btnClasses} onClick={props.onClick}>
       <span className={classes.icon}>
-        <CartIcon />
+        <LoginIcon />
       </span>
       <span>Login</span>
     </button>
