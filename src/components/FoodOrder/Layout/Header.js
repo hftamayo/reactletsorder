@@ -1,6 +1,7 @@
 import React, { useContext, Fragment }from 'react';
 import AuthContext from '../store/auth-context';
 import HeaderCartButton from './HeaderCartButton';
+import LoginButton from './LoginButton';
 import mealsImage from '../assets/banner.jpg';
 import classes from './Header.module.css';
 
@@ -10,7 +11,7 @@ const Header = props => {
         <Fragment>
             <header className={classes.header}>
                 <h1>Lets Order!!!</h1>
-                {authCtx.isLoggedIn && <HeaderCartButton onClick={props.onShowCart} />}
+                {authCtx.isLoggedIn ? <HeaderCartButton onClick={props.onShowCart} /> : <LoginButton />}
             </header>
             <div className={classes['main-image']}>
                 <img src={mealsImage} alt="all you can eat brunch" />
