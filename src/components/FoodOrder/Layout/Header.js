@@ -11,7 +11,7 @@ const Header = props => {
         <Fragment>
             <header className={classes.header}>
                 <h1>Lets Order!!!</h1>
-                {authCtx.isLoggedIn ? <HeaderCartButton onClick={props.onShowCart} /> : <LoginButton />}
+                {authCtx.isLoggedIn ? <HeaderCartButton onClick={props.onShowCart} /> : <LoginButton onClick={props.onShowLogin} />}
             </header>
             <div className={classes['main-image']}>
                 <img src={mealsImage} alt="all you can eat brunch" />
