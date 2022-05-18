@@ -29,7 +29,7 @@ const FoodOrder = () => {
     return(
         <CartProvider>
             {cartIsShown && <Cart onClose={hideCartHandler} />}
-            <Header onShowCart={showCartHandler} onShowLogin={showLoginHandler} />
+            <Header onShowCart={showCartHandler}/>
             <main>
                 <Meals />
             </main>

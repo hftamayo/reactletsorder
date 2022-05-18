@@ -6,10 +6,10 @@ import React, {
   useRef,
 } from "react";
 
-import Card from "../../UI/Card";
+import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
-import Button from "../../UI/Button/Button";
-import Input from "../../UI/Input/Input";
+import Button from "../UI/Button/Button";
+import Input from "../UI/Input/Input";
 import AuthContext from "../store/auth-context";
 
 const emailReducer = (state, action) => {
