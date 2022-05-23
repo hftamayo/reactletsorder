@@ -122,16 +122,16 @@ const Login = (props) => {
           onChange={emailChangeHandler}
           onBlur={validateEmailHandler}
         />
-          <Input
-            ref={passwordInputRef}
-            id="paswword"
-            label="Password"
-            type="password"
-            isValid={passwordIsValid}
-            value={passwordState.value}
-            onChange={passwordChangeHandler}
-            onBlur={validatePasswordHandler}
-          />
+        <Input
+          ref={passwordInputRef}
+          id="paswword"
+          label="Password"
+          type="password"
+          isValid={passwordIsValid}
+          value={passwordState.value}
+          onChange={passwordChangeHandler}
+          onBlur={validatePasswordHandler}
+        />
         <div className={classes.actions}>
           <Button type="submit" className={classes.btn}>
             Login
