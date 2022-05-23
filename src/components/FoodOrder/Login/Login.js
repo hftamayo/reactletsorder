@@ -1,144 +1,166 @@
-import React, {
-  useState,
-  useEffect,
-  useReducer,
-  useContext,
-  useRef,
-} from "react";
-
-import Card from "../UI/Card/Card";
+import React, { useContext, useState } from "react";
+import Modal from "../UI/Modal";
 import classes from "./Login.module.css";
-import Button from "../UI/Button/Button";
-import Input from "../UI/Input/Input";
 import AuthContext from "../store/auth-context";
 
-const emailReducer = (state, action) => {
-  if (action.type === "USER_INPUT") {
-    return { value: action.val, isValid: action.val.includes("@") };
-  }
-  if (action.type === "INPUT_BLUR") {
-    return { value: state.value, isValid: state.value.includes("@") };
-  }
-  return { value: "", isValid: false };
-};
-
-const passwordReducer = (state, action) => {
-  if (action.type === "USER_INPUT") {
-    return { value: action.val, isValid: action.val.trim().length > 6 };
-  }
-  if (action.type === "INPUT_BLUR") {
-    return { value: state.value, isValid: state.value.trim().length > 6 };
-  }
-  return { value: "", isValid: false };
-};
-
 const Login = (props) => {
-  const [formIsValid, setFormIsValid] = useState(false);
-  const [emailState, dispatchEmail] = useReducer(emailReducer, {
-    value: "",
-    isValid: null,
-  });
+  const [isCanceling, setIsCanceling] = useState(false);
+  const [isValidating, setIsValidating] = useState(false);
+  const [didValidate, setDidValidate] = useState(false);
+  const [isErrorOnValidate, setIsErrorOnValidate] = useState(false);
+  const cartCtx = useContext(CartContext);
 
-  const [passwordState, dispatchPassword] = useReducer(passwordReducer, {
-    value: "",
-    isValid: null,
-  });
+  const cartItemRemoveHandler = (id) => {
+    cartCtx.removeItem(id);
+  };
 
-  const authCtx = useContext(AuthContext);
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
+  const cartItemAddHandler = (item) => {
+    cartCtx.addItem({ ...item, amount: 1 });
+  };
 
-  useEffect(() => {
-    console.log("EFFECT RUNNING");
+  const orderHandler = () => {
+    setIsCheckout(true);
+  };
 
-    return () => {
-      console.log(
-        "EFFECT CLEANUP->ONLY WHEN PASSWORD IS LENGTH VALID AND VERIFIED"
-      );
-    };
-  }, []);
+  const showCartHandler = () => {
+    setIsCheckout(false);
+  };
 
-  const { isValid: emailIsValid } = emailState;
-  const { isValid: passwordIsValid } = passwordState;
+  const errorOnSentOrderHandler = () => {
+    setIsErrorOnSentOrder(true);
+  };
 
-  useEffect(() => {
-    const identifier = setTimeout(() => {
-      console.log("Checking form validity");
-      setFormIsValid(emailIsValid && passwordIsValid);
-    }, 500); //->500 significa que el tiempo en segundos que se ejecuta el setTimeOut
-
-    return () => {
-      console.log("CLEANUP");
-      clearTimeout(identifier);
-    };
-  }, [emailIsValid, passwordIsValid]);
-
-  const emailChangeHandler = (event) => {
-    dispatchEmail({ type: "USER_INPUT", val: event.target.value });
-
+  const submitOrderHandler = async (userData) => {
     /*
-    setFormIsValid(
-      event.target.value.includes("@") &&
-        passwordState.isValid
+    await fetch("http://localhost:8080/api/orders", {  
+      credentials: "include",    
+      method: "POST",
+      body: JSON.stringify(pruebaData),
+      headers: {
+        'Content-Type': 'application/json',
+//        'Access-Control-Allow-Origin': '*',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MUBmYWtlbWFpbC5jb20iLCJleHAiOjE2MzI3NTAzODYsImlhdCI6MTYzMjcxNDM4Nn0.2tvdnG9B0HdpUpV0xsOKKaATFkyuNVKMpzYE8sXBFtw',
+      }
+      */
+
+    setIsSubmitting(true);
+    const response = await fetch(
+      "https://movieserp-default-rtdb.firebaseio.com/orders.json",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          user: userData,
+          orderedItems: cartCtx.items,
+        }),
+      }
     );
-    */
-  };
-
-  const passwordChangeHandler = (event) => {
-    dispatchPassword({ type: "USER_INPUT", val: event.target.value });
-
-    //setFormIsValid(emailState.isValid && event.target.value.trim().length > 6);
-  };
-
-  const validateEmailHandler = () => {
-    dispatchEmail({ type: "INPUT_BLUR" });
-  };
-
-  const validatePasswordHandler = () => {
-    dispatchPassword({ type: "INPUT_BLUR" });
-  };
-
-  const submitHandler = (event) => {
-    event.preventDefault();
-    if (formIsValid) {
-      authCtx.onLogin(emailState.value, passwordState.value);
-    } else if (!emailIsValid) {
-      emailInputRef.current.focus();
+    if (!response.ok) {
+      errorOnSentOrderHandler();
     } else {
-      passwordInputRef.current.focus();
+      setIsSubmitting(false);
+      setIsCheckout(false);
+      setDidSubmit(true);
+      cartCtx.clearCart();
     }
   };
 
+  const cartItems = (
+    <ul className={classes["cart-items"]}>
+      {cartCtx.items.map((item) => (
+        <CartItem
+          key={item.id}
+          name={item.name}
+          amount={item.amount}
+          price={item.price}
+          onRemove={cartItemRemoveHandler.bind(null, item.id)}
+          onAdd={cartItemAddHandler.bind(null, item)}
+        />
+      ))}
+    </ul>
+  );
+
+  const cartContentButtons = (
+    <React.Fragment>
+      <button className={classes["button--alt"]} onClick={props.onClose}>
+        Close
+      </button>
+      <button className={classes["button--alt"]} onClick={orderHandler}>
+        Order's Details
+      </button>
+    </React.Fragment>
+  );
+
+  const orderDetailsButtons = (
+    <React.Fragment>
+      <button className={classes["button--alt"]} onClick={props.onClose}>
+        Close
+      </button>
+      <button className={classes["button--alt"]} onClick={showCartHandler}>
+        Cart's Content
+      </button>
+    </React.Fragment>
+  );
+
+  const modalActions = (
+    <div className={classes.actions}>
+      {!isCheckout && hasItems ? cartContentButtons : orderDetailsButtons}
+    </div>
+  );
+
+  const CartModalContent = (
+    <React.Fragment>
+      {cartItems}
+      <div className={classes.total}>
+        <span>Total Amount</span>
+        <span>{totalAmount}</span>
+      </div>
+      {modalActions}
+    </React.Fragment>
+  );
+
+  const OrderDetailsModalContent = (
+    <React.Fragment>
+      {isCheckout && (
+        <OrderDetails onConfirm={submitOrderHandler} onCancel={props.onClose} />
+      )}
+      {modalActions}
+    </React.Fragment>
+  );
+
+  const isSubmittingModalContent = <p>Sending order data...</p>;
+  /* incluir transaccion para verificar si es exitoso o hubo algun error */
+
+  const errorOnSentOrderModalContent = (
+    <React.Fragment>
+      <p>Process failed. An error occurs sending the order!</p>
+      <div className={classes.actions}>
+        <button className={classes.button} onClick={props.onClose}>
+          Close
+        </button>
+      </div>
+    </React.Fragment>
+  );  
+
+
+  const didSubmitModalContent = (
+    <React.Fragment>
+      <p>Successfully sent the order!</p>
+      <div className={classes.actions}>
+        <button className={classes.button} onClick={props.onClose}>
+          Close
+        </button>
+      </div>
+    </React.Fragment>
+  );
+
   return (
-    <Card className={classes.login}>
-      <form onSubmit={submitHandler}>
-        <Input
-          ref={emailInputRef}
-          id="email"
-          label="E-Mail"
-          type="email"
-          isValid={emailIsValid}
-          value={emailState.value}
-          onChange={emailChangeHandler}
-          onBlur={validateEmailHandler}
-        />
-        <Input
-          ref={passwordInputRef}
-          id="paswword"
-          label="Password"
-          type="password"
-          isValid={passwordIsValid}
-          value={passwordState.value}
-          onChange={passwordChangeHandler}
-          onBlur={validatePasswordHandler}
-        />
-        <div className={classes.actions}>
-          <Button type="submit" className={classes.btn}>
-            Login
-          </Button>
-        </div>
-      </form>
-    </Card>
+    <Modal onClose={props.onClose}>
+      {!isSubmitting && !didSubmit && !isCheckout && CartModalContent}
+      {isCheckout && OrderDetailsModalContent}
+      {isSubmitting && isSubmittingModalContent}
+      {isErrorOnSentOrder && errorOnSentOrderModalContent}
+      {!isSubmitting && didSubmit && didSubmitModalContent}
+    </Modal>
   );
 };
 
