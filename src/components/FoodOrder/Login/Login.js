@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import Modal from "../UI/Modal";
 import classes from "./Login.module.css";
-import Button from "../UI/Button/Button";
 import Input from "../UI/Input/Input";
 import AuthContext from "../store/auth-context";
 
@@ -66,8 +65,7 @@ const Login = (props) => {
         </button>
       </div>
     </React.Fragment>
-  );  
-
+  );
 
   const didValidateModalContent = (
     <React.Fragment>
@@ -82,56 +80,49 @@ const Login = (props) => {
 
   const loginButtons = (
     <React.Fragment>
+      <button className={classes["button--alt"]} onClick={validatingHandler}>
+        Login
+      </button>
       <button className={classes["button--alt"]} onClick={props.onClose}>
         Close
-      </button>
-      <button className={classes["button--alt"]} onClick={validatingHandler}>
-        Validate
       </button>
     </React.Fragment>
   );
 
   const modalActions = (
-    <div className={classes.actions}>
-      {!isCanceling ? loginButtons : ""}
-    </div>
+    <div className={classes.actions}>{!isCanceling ? loginButtons : ""}</div>
   );
 
   const LoginModalContent = (
     <React.Fragment>
-        <Input
-          //ref={emailInputRef}
-          id="email"
-          label="E-Mail"
-          type="email"
-          //isValid={emailIsValid}
-          //value={emailState.value}
-          //onChange={emailChangeHandler}
-          //onBlur={validateEmailHandler}
-        />
-        <Input
-          //ref={passwordInputRef}
-          id="paswword"
-          label="Password"
-          type="password"
-          //isValid={passwordIsValid}
-          //value={passwordState.value}
-          //onChange={passwordChangeHandler}
-          //onBlur={validatePasswordHandler}
-        />
-        <div className={classes.actions}>
-          <Button type="submit" className={classes.btn}>
-            Login
-          </Button>
-        </div>
-        {modalActions}
+      <Input
+        //ref={emailInputRef}
+        id="email"
+        label="E-Mail"
+        type="email"
+        //isValid={emailIsValid}
+        //value={emailState.value}
+        //onChange={emailChangeHandler}
+        //onBlur={validateEmailHandler}
+      />
+      <Input
+        //ref={passwordInputRef}
+        id="paswword"
+        label="Password"
+        type="password"
+        //isValid={passwordIsValid}
+        //value={passwordState.value}
+        //onChange={passwordChangeHandler}
+        //onBlur={validatePasswordHandler}
+      />
+      {modalActions}
     </React.Fragment>
   );
 
   return (
     <Modal onClose={props.onClose}>
       {!isCanceling && !isValidating && !isErrorOnValidate && LoginModalContent}
-       {isValidating && isValidatingModalContent}
+      {isValidating && isValidatingModalContent}
       {isErrorOnValidate && errorOnValidateModalContent}
       {!isValidating && didValidate && didValidateModalContent}
     </Modal>

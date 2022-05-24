@@ -8,7 +8,7 @@ import React, {
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
-import Button from "../UI/Button/Button";
+import Button from "../UI/DeleteButton/Button";
 import Input from "../UI/Input/Input";
 import AuthContext from "../store/auth-context";
 
