@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import Modal from "../UI/Modal";
 import classes from "./Login.module.css";
+import Button from "../UI/Button/Button";
+import Input from "../UI/Input/Input";
 import AuthContext from "../store/auth-context";
 
 const Login = (props) => {
@@ -8,7 +10,7 @@ const Login = (props) => {
   const [isValidating, setIsValidating] = useState(false);
   const [didValidate, setDidValidate] = useState(false);
   const [isErrorOnValidate, setIsErrorOnValidate] = useState(false);
-  const cartCtx = useContext(CartContext);
+  //const cartCtx = useContext(CartContext);
 
   const validatingHandler = () => {
     setIsValidating(true);
@@ -37,8 +39,8 @@ const Login = (props) => {
       {
         method: "POST",
         body: JSON.stringify({
-          user: userData,
-          orderedItems: cartCtx.items,
+          //user: userData,
+          //orderedItems: cartCtx.items,
         }),
       }
     );
@@ -98,24 +100,24 @@ const Login = (props) => {
   const LoginModalContent = (
     <React.Fragment>
         <Input
-          ref={emailInputRef}
+          //ref={emailInputRef}
           id="email"
           label="E-Mail"
           type="email"
-          isValid={emailIsValid}
-          value={emailState.value}
-          onChange={emailChangeHandler}
-          onBlur={validateEmailHandler}
+          //isValid={emailIsValid}
+          //value={emailState.value}
+          //onChange={emailChangeHandler}
+          //onBlur={validateEmailHandler}
         />
         <Input
-          ref={passwordInputRef}
+          //ref={passwordInputRef}
           id="paswword"
           label="Password"
           type="password"
-          isValid={passwordIsValid}
-          value={passwordState.value}
-          onChange={passwordChangeHandler}
-          onBlur={validatePasswordHandler}
+          //isValid={passwordIsValid}
+          //value={passwordState.value}
+          //onChange={passwordChangeHandler}
+          //onBlur={validatePasswordHandler}
         />
         <div className={classes.actions}>
           <Button type="submit" className={classes.btn}>
