@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from './Layout/Header';
 import Meals from './Meals/Meals';
 import Cart from './Cart/Cart';
-import Login from './Login/DeleteLogin';
+import Login from './Login/Login';
 import CartProvider from './store/CartProvider';
 
 
