@@ -30,12 +30,11 @@ const Signup = (props) => {
 
     setIsSaving(true);
     const response = await fetch(
-      "https://movieserp-default-rtdb.firebaseio.com/orders.json",
+      "https://movieserp-default-rtdb.firebaseio.com/clients.json",
       {
         method: "POST",
         body: JSON.stringify({
-          //user: userData,
-          //orderedItems: cartCtx.items,
+          client: clientData,
         }),
       }
     );
@@ -93,6 +92,26 @@ const Signup = (props) => {
     <React.Fragment>
       <Input
         //ref={emailInputRef}
+        id="firstname"
+        label="First Name"
+        type="text"
+        //isValid={emailIsValid}
+        //value={emailState.value}
+        //onChange={emailChangeHandler}
+        //onBlur={validateEmailHandler}
+      />
+      <Input
+        //ref={emailInputRef}
+        id="lastname"
+        label="Last Name"
+        type="text"
+        //isValid={emailIsValid}
+        //value={emailState.value}
+        //onChange={emailChangeHandler}
+        //onBlur={validateEmailHandler}
+      />            
+      <Input
+        //ref={emailInputRef}
         id="email"
         label="E-Mail"
         type="email"
@@ -111,6 +130,16 @@ const Signup = (props) => {
         //onChange={passwordChangeHandler}
         //onBlur={validatePasswordHandler}
       />
+      <Input
+        //ref={passwordInputRef}
+        id="paswword"
+        label="Confirm-Password"
+        type="password"
+        //isValid={passwordIsValid}
+        //value={passwordState.value}
+        //onChange={passwordChangeHandler}
+        //onBlur={validatePasswordHandler}
+      />      
       {modalActions}
     </React.Fragment>
   );
