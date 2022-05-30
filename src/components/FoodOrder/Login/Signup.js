@@ -34,7 +34,7 @@ const Signup = (props) => {
       {
         method: "POST",
         body: JSON.stringify({
-          client: clientData,
+          //client: clientData,
         }),
       }
     );
@@ -73,7 +73,7 @@ const Signup = (props) => {
     </React.Fragment>
   );
 
-  const SignUpButtons = (
+  const SignupButtons = (
     <React.Fragment>
       <button className={classes["button--alt"]} onClick={signupHandler}>
         Sign-Up
@@ -85,7 +85,7 @@ const Signup = (props) => {
   );
 
   const modalActions = (
-    <div className={classes.actions}>{!isCanceling ? SingupButtons : ""}</div>
+    <div className={classes.actions}>{!isCanceling ? SignupButtons : ""}</div>
   );
 
   const SignupModalContent = (
@@ -146,7 +146,7 @@ const Signup = (props) => {
 
   return (
     <Modal onClose={props.onClose}>
-      {!isCanceling && !isSaving && !isErrorOnSaving && SignupModalContent}
+      {!isCanceling && !isSaving && !isErrorOnSave && SignupModalContent}
       {isSaving && isSavingModalContent}
       {isErrorOnSave && errorOnSavingModalContent}
       {!isSaving && didSave && didSaveModalContent}
