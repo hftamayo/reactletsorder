@@ -6,20 +6,16 @@ import AuthContext from "../store/auth-context";
 
 const Signup = (props) => {
   const [isCanceling, setIsCanceling] = useState(false);
-  const [isValidating, setIsValidating] = useState(false);
-  const [didValidate, setDidValidate] = useState(false);
-  const [isErrorOnValidate, setIsErrorOnValidate] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [didSave, setDidSave] = useState(false);
+  const [isErrorOnSave, setIsErrorOnSave] = useState(false);
   //const cartCtx = useContext(CartContext);
 
-  const validatingHandler = () => {
-    setIsValidating(true);
+  const errorOnSignupHandler = () => {
+    setIsErrorOnSave(true);
   };
 
-  const errorOnValidateHandler = () => {
-    setIsErrorOnValidate(true);
-  };
-
-  const validateCredentialsHandler = async (userData) => {
+  const signupHandler = async (userData) => {
     /*
     await fetch("http://localhost:8080/api/orders", {  
       credentials: "include",    
@@ -32,7 +28,7 @@ const Signup = (props) => {
       }
       */
 
-    setIsValidating(true);
+    setIsSaving(true);
     const response = await fetch(
       "https://movieserp-default-rtdb.firebaseio.com/orders.json",
       {
@@ -44,21 +40,21 @@ const Signup = (props) => {
       }
     );
     if (!response.ok) {
-      errorOnValidateHandler();
+      errorOnSignupHandler();
     } else {
-      setIsValidating(false);
+      setIsSaving(false);
       setIsCanceling(false);
-      setDidValidate(true);
+      setDidSave(true);
       //cartCtx.clearCart();
     }
   };
 
-  const isValidatingModalContent = <p>Saving new user...</p>;
+  const isSavingModalContent = <p>Saving new user...</p>;
   /* incluir transaccion para verificar si es exitoso o hubo algun error */
 
-  const errorOnValidateModalContent = (
+  const errorOnSavingModalContent = (
     <React.Fragment>
-      <p>An error occurs during creating the new user. Please try again later</p>
+      <p>The user account could not be created. Please try again later</p>
       <div className={classes.actions}>
         <button className={classes.button} onClick={props.onClose}>
           Close
@@ -67,9 +63,9 @@ const Signup = (props) => {
     </React.Fragment>
   );
 
-  const didValidateModalContent = (
+  const didSaveModalContent = (
     <React.Fragment>
-      <p>New user created, welcome!</p>
+      <p>User account created, welcome!</p>
       <div className={classes.actions}>
         <button className={classes.button} onClick={props.onClose}>
           Close
@@ -78,10 +74,10 @@ const Signup = (props) => {
     </React.Fragment>
   );
 
-  const loginButtons = (
+  const SignUpButtons = (
     <React.Fragment>
-      <button className={classes["button--alt"]} onClick={validatingHandler}>
-        Login
+      <button className={classes["button--alt"]} onClick={signupHandler}>
+        Sign-Up
       </button>
       <button className={classes["button--alt"]} onClick={props.onClose}>
         Close
@@ -90,10 +86,10 @@ const Signup = (props) => {
   );
 
   const modalActions = (
-    <div className={classes.actions}>{!isCanceling ? loginButtons : ""}</div>
+    <div className={classes.actions}>{!isCanceling ? SingupButtons : ""}</div>
   );
 
-  const LoginModalContent = (
+  const SignupModalContent = (
     <React.Fragment>
       <Input
         //ref={emailInputRef}
@@ -121,10 +117,10 @@ const Signup = (props) => {
 
   return (
     <Modal onClose={props.onClose}>
-      {!isCanceling && !isValidating && !isErrorOnValidate && LoginModalContent}
-      {isValidating && isValidatingModalContent}
-      {isErrorOnValidate && errorOnValidateModalContent}
-      {!isValidating && didValidate && didValidateModalContent}
+      {!isCanceling && !isSaving && !isErrorOnSaving && SignupModalContent}
+      {isSaving && isSavingModalContent}
+      {isErrorOnSave && errorOnSavingModalContent}
+      {!isSaving && didSave && didSaveModalContent}
     </Modal>
   );
 };
