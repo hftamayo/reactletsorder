@@ -1,42 +1,56 @@
-import React, { useState } from 'react';
-import Header from './Layout/Header';
-import Meals from './Meals/Meals';
-import Cart from './Cart/Cart';
-import Login from './Login/Login';
-import CartProvider from './store/CartProvider';
-
+import React, { useState } from "react";
+import Header from "./Layout/Header";
+import Meals from "./Meals/Meals";
+import Cart from "./Cart/Cart";
+import Login from "./Login/Login";
+import Signup from "./Login/Signup";
+import CartProvider from "./store/CartProvider";
 
 const FoodOrder = () => {
-    const [cartIsShown, setCartIsShown] = useState(false);
-    const [loginIsShown, setLoginIsShown] = useState(false);
-    
-    const showCartHandler = () => {
-        setCartIsShown(true);
-    }
+  const [cartIsShown, setCartIsShown] = useState(false);
+  const [loginIsShown, setLoginIsShown] = useState(false);
+  const [SignupIsShown, setSignupIsShown] = useState(false);
 
-    const hideCartHandler = () => {
-        setCartIsShown(false);
-    }
+  const showCartHandler = () => {
+    setCartIsShown(true);
+  };
 
-    const showLoginHandler = () => {
-        setLoginIsShown(true);
-    }
+  const hideCartHandler = () => {
+    setCartIsShown(false);
+  };
 
-    const hideLoginHandler = () => {
-        setLoginIsShown(false);
-    }
+  const showLoginHandler = () => {
+    setLoginIsShown(true);
+  };
 
-    return(
-        <CartProvider>
-            {cartIsShown && <Cart onClose={hideCartHandler} />}
-            {loginIsShown && <Login onClose={hideLoginHandler} />}
-            <Header onShowCart={showCartHandler} onShowLogin={showLoginHandler}/>
-            <main>
-                <Meals />
-            </main>
-        </CartProvider>
+  const hideLoginHandler = () => {
+    setLoginIsShown(false);
+  };
 
-    );
-}
+  const showSignupHandler = () => {
+    setSignupIsShown(true);
+  };
+
+  const hideSignupHandler = () => {
+    setSignupIsShown(false);
+  };  
+
+
+  return (
+    <CartProvider>
+      {cartIsShown && <Cart onClose={hideCartHandler} />}
+      {loginIsShown && <Login onClose={hideLoginHandler} />}
+      {SignupIsShown && <Signup onClose={hideSignupHandler} />}
+      <Header
+        onShowCart={showCartHandler}
+        onShowLogin={showLoginHandler}
+        onShowSignup={showSignupHandler}
+      />
+      <main>
+        <Meals />
+      </main>
+    </CartProvider>
+  );
+};
 
 export default FoodOrder;
