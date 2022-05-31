@@ -15,7 +15,7 @@ const Header = (props) => {
         {authCtx.isLoggedIn ? (
           <HeaderCartButton onClick={props.onShowCart} />
         ) : (
-          <div>
+          <div className={classes.btncontainer}>
             <LoginButton onClick={props.onShowLogin} />
             <SignupButton onClick={props.onShowSignup} />
           </div>
