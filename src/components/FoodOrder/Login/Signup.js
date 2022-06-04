@@ -115,6 +115,7 @@ const Signup = (props) => {
         id="email"
         label="E-Mail"
         type="email"
+        autodata="off"
         //isValid={emailIsValid}
         //value={emailState.value}
         //onChange={emailChangeHandler}
@@ -125,6 +126,7 @@ const Signup = (props) => {
         id="paswword"
         label="Password"
         type="password"
+        autodata="new-password"
         //isValid={passwordIsValid}
         //value={passwordState.value}
         //onChange={passwordChangeHandler}
@@ -135,6 +137,7 @@ const Signup = (props) => {
         id="paswword"
         label="Confirm-Password"
         type="password"
+        autodata="new-password"
         //isValid={passwordIsValid}
         //value={passwordState.value}
         //onChange={passwordChangeHandler}

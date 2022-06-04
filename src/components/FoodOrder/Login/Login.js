@@ -100,6 +100,7 @@ const Login = (props) => {
         id="email"
         label="E-Mail"
         type="email"
+        autodata="off"
         //isValid={emailIsValid}
         //value={emailState.value}
         //onChange={emailChangeHandler}
@@ -110,6 +111,7 @@ const Login = (props) => {
         id="paswword"
         label="Password"
         type="password"
+        autodata="new-password"
         //isValid={passwordIsValid}
         //value={passwordState.value}
         //onChange={passwordChangeHandler}
