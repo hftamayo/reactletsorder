@@ -12,7 +12,7 @@ const AvailableMeals = () => {
   useEffect(() => {
     const fetchMeals = async () => {
       const response = await fetch(
-        "https://movieserp-default-rtdb.firebaseio.com/meals.json"
+        "http://localhost/meals.json" //https://movieserp-default-rtdb.firebaseio.com/meals.json
       );
       //const response = await fetch('http://localhost:8080/api/products');
 
