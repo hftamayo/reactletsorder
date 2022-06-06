@@ -78,9 +78,6 @@ const Signup = (props) => {
       <button className={classes["button--alt"]} onClick={signupHandler}>
         Sign-Up
       </button>
-      <button className={classes["button--alt"]} onClick={signupHandler}>
-        Add Address
-      </button>      
       <button className={classes["button--alt"]} onClick={props.onClose}>
         Close
       </button>
