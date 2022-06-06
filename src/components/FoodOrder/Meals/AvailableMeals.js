@@ -11,10 +11,8 @@ const AvailableMeals = () => {
 
   useEffect(() => {
     const fetchMeals = async () => {
-      const response = await fetch(
-        "http://localhost/meals.json" //https://movieserp-default-rtdb.firebaseio.com/meals.json
-      );
-      //const response = await fetch('http://localhost:8080/api/products');
+      const response = await fetch("http://localhost/meals.json");
+      //https://movieserp-default-rtdb.firebaseio.com/meals.json
 
       if (!response.ok) {
         throw new Error("something went wrong");
