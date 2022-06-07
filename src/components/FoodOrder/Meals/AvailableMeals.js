@@ -11,7 +11,7 @@ const AvailableMeals = () => {
 
   useEffect(() => {
     const fetchMeals = async () => {
-      const response = await fetch("http://localhost/meals.json");
+      const response = await fetch("http://localhost:3000/meals.json");
       //https://movieserp-default-rtdb.firebaseio.com/meals.json
 
       if (!response.ok) {
