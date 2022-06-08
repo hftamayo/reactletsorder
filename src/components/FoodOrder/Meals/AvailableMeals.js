@@ -19,6 +19,7 @@ const AvailableMeals = () => {
           'Access-Control-Allow-Origin': '*',
         }
       });
+      
       //https://movieserp-default-rtdb.firebaseio.com/meals.json
 
       if (!response.ok) {
@@ -26,6 +27,7 @@ const AvailableMeals = () => {
       }
 
       const responseData = await response.json(); 
+
       //el objeto se traduce a un array
       const loadedMeals = [];
 
