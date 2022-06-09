@@ -6,23 +6,10 @@ import CartContext from "../store/cart-context";
 import OrderDetails from "./OrderDetails";
 
 const Cart = (props) => {
-
-  const userData = {
-    "clientName": "Marvin the Martian",
-    "clientId": "123"
-  };
-  /*
-  const pruebaData = {
-    "ordersDate": "26-09-2021",
-    "ordersStatus": "ON KITCHEN",
-    "ordersDelivaddress": "Comunidad El Pino",
-    "idPayment": "1",        
-    "idUser": "1"
-  };
-  */
   const [isCheckout, setIsCheckout] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
+  const [isErrorOnSentOrder, setIsErrorOnSentOrder] = useState(false);
   const cartCtx = useContext(CartContext);
 
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
@@ -33,15 +20,23 @@ const Cart = (props) => {
   };
 
   const cartItemAddHandler = (item) => {
-    cartCtx.addItem({...item, amount: 1});
+    cartCtx.addItem({ ...item, amount: 1 });
   };
 
   const orderHandler = () => {
     setIsCheckout(true);
   };
 
+  const showCartHandler = () => {
+    setIsCheckout(false);
+  };
+
+  const errorOnSentOrderHandler = () => {
+    setIsErrorOnSentOrder(true);
+  };
+
   const submitOrderHandler = async (userData) => {
-        /*
+    /*
     await fetch("http://localhost:8080/api/orders", {  
       credentials: "include",    
       method: "POST",
@@ -51,19 +46,27 @@ const Cart = (props) => {
 //        'Access-Control-Allow-Origin': '*',
         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MUBmYWtlbWFpbC5jb20iLCJleHAiOjE2MzI3NTAzODYsImlhdCI6MTYzMjcxNDM4Nn0.2tvdnG9B0HdpUpV0xsOKKaATFkyuNVKMpzYE8sXBFtw',
       }
-      */ 
+      */
 
     setIsSubmitting(true);
-    await fetch("https://movieserp-default-rtdb.firebaseio.com/orders.json", {
-      method: 'POST',
-      BODY: JSON.stringify({
-        user: userData,
-        orderedItems: cartCtx.items,
-      }),
-    });
-    setIsSubmitting(false);
-    setDidSubmit(true);
-    cartCtx.clearCart();
+    const response = await fetch(
+      "https://movieserp-default-rtdb.firebaseio.com/orders.json",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          user: userData,
+          orderedItems: cartCtx.items,
+        }),
+      }
+    );
+    if (!response.ok) {
+      errorOnSentOrderHandler();
+    } else {
+      setIsSubmitting(false);
+      setIsCheckout(false);
+      setDidSubmit(true);
+      cartCtx.clearCart();
+    }
   };
 
   const cartItems = (
@@ -81,16 +84,31 @@ const Cart = (props) => {
     </ul>
   );
 
-  const modalActions = (
-    <div className={classes.actions}>
+  const cartContentButtons = (
+    <React.Fragment>
       <button className={classes["button--alt"]} onClick={props.onClose}>
         Close
       </button>
-      {hasItems && (
-        <button className={classes.button} onClick={orderHandler}>
-          Order
-        </button>
-      )}
+      <button className={classes["button--alt"]} onClick={orderHandler}>
+        Order's Details
+      </button>
+    </React.Fragment>
+  );
+
+  const orderDetailsButtons = (
+    <React.Fragment>
+      <button className={classes["button--alt"]} onClick={props.onClose}>
+        Close
+      </button>
+      <button className={classes["button--alt"]} onClick={showCartHandler}>
+        Cart's Content
+      </button>
+    </React.Fragment>
+  );
+
+  const modalActions = (
+    <div className={classes.actions}>
+      {!isCheckout && hasItems ? cartContentButtons : orderDetailsButtons}
     </div>
   );
 
@@ -101,16 +119,33 @@ const Cart = (props) => {
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
+      {modalActions}
+    </React.Fragment>
+  );
 
+  const OrderDetailsModalContent = (
+    <React.Fragment>
       {isCheckout && (
         <OrderDetails onConfirm={submitOrderHandler} onCancel={props.onClose} />
       )}
-      {!isCheckout && modalActions}
+      {modalActions}
     </React.Fragment>
   );
 
   const isSubmittingModalContent = <p>Sending order data...</p>;
   /* incluir transaccion para verificar si es exitoso o hubo algun error */
+
+  const errorOnSentOrderModalContent = (
+    <React.Fragment>
+      <p>Process failed. An error occurs sending the order!</p>
+      <div className={classes.actions}>
+        <button className={classes.button} onClick={props.onClose}>
+          Close
+        </button>
+      </div>
+    </React.Fragment>
+  );  
+
 
   const didSubmitModalContent = (
     <React.Fragment>
@@ -125,8 +160,10 @@ const Cart = (props) => {
 
   return (
     <Modal onClose={props.onClose}>
-      {!isSubmitting && !didSubmit && CartModalContent}
+      {!isSubmitting && !didSubmit && !isCheckout && CartModalContent}
+      {isCheckout && OrderDetailsModalContent}
       {isSubmitting && isSubmittingModalContent}
+      {isErrorOnSentOrder && errorOnSentOrderModalContent}
       {!isSubmitting && didSubmit && didSubmitModalContent}
     </Modal>
   );
