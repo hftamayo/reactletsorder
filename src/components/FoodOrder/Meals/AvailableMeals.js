@@ -11,22 +11,17 @@ const AvailableMeals = () => {
 
   useEffect(() => {
     const fetchMeals = async () => {
-      const response = await fetch("http://localhost:3000/meals.json", {
-        'method': 'GET',
-        'mode': 'no-cors',
-        'headers': {
-          'Origin': 'localhost:3000',
-          'Access-Control-Allow-Origin': '*',
-        }
+      const response = await fetch("http://localhost:3000/meals", {
+        method: "GET",
       });
-      
+
       //https://movieserp-default-rtdb.firebaseio.com/meals.json
 
       if (!response.ok) {
         throw new Error("The data could not be shown");
       }
 
-      const responseData = await response.json(); 
+      const responseData = await response.json();
 
       //el objeto se traduce a un array
       const loadedMeals = [];
