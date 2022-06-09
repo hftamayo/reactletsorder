@@ -29,15 +29,27 @@ const Signup = (props) => {
       */
 
     setIsSaving(true);
+    /*
     const response = await fetch(
       "https://movieserp-default-rtdb.firebaseio.com/clients.json",
       {
         method: "POST",
         body: JSON.stringify({
-          //client: clientData,
+          client: clientData,
         }),
       }
     );
+    */
+    const response = await fetch(
+      "http://localhost:3000/clients",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          client: clientData,
+        }),
+      }
+    );
+
     if (!response.ok) {
       errorOnSignupHandler();
     } else {
@@ -109,7 +121,7 @@ const Signup = (props) => {
         //value={emailState.value}
         //onChange={emailChangeHandler}
         //onBlur={validateEmailHandler}
-      />            
+      />
       <Input
         //ref={emailInputRef}
         id="email"
@@ -142,7 +154,7 @@ const Signup = (props) => {
         //value={passwordState.value}
         //onChange={passwordChangeHandler}
         //onBlur={validatePasswordHandler}
-      />      
+      />
       {modalActions}
     </React.Fragment>
   );
