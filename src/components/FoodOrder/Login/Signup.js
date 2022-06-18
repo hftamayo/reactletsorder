@@ -16,36 +16,18 @@ const Signup = (props) => {
   };
 
   const signupHandler = async (userData) => {
-    /*
-    await fetch("http://localhost:8080/api/orders", {  
-      credentials: "include",    
-      method: "POST",
-      body: JSON.stringify(pruebaData),
-      headers: {
-        'Content-Type': 'application/json',
-      //'Access-Control-Allow-Origin': '*',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MUBmYWtlbWFpbC5jb20iLCJleHAiOjE2MzI3NTAzODYsImlhdCI6MTYzMjcxNDM4Nn0.2tvdnG9B0HdpUpV0xsOKKaATFkyuNVKMpzYE8sXBFtw',
-      }
-      */
 
     setIsSaving(true);
-    /*
-    const response = await fetch(
-      "https://movieserp-default-rtdb.firebaseio.com/clients.json",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          client: clientData,
-        }),
-      }
-    );
-    */
+
     const response = await fetch(
       "http://localhost:3000/clients",
       {
-        method: "POST",
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
-          client: clientData,
+          client: clientData[0],
         }),
       }
     );
@@ -146,7 +128,7 @@ const Signup = (props) => {
       />
       <Input
         //ref={passwordInputRef}
-        id="paswword"
+        id="paswword2"
         label="Confirm-Password"
         type="password"
         autodata="new-password"
