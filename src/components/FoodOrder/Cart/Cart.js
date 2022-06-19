@@ -36,18 +36,6 @@ const Cart = (props) => {
   };
 
   const submitOrderHandler = async (userData) => {
-    /*
-    await fetch("http://localhost:8080/api/orders", {  
-      credentials: "include",    
-      method: "POST",
-      body: JSON.stringify(pruebaData),
-      headers: {
-        'Content-Type': 'application/json',
-//        'Access-Control-Allow-Origin': '*',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MUBmYWtlbWFpbC5jb20iLCJleHAiOjE2MzI3NTAzODYsImlhdCI6MTYzMjcxNDM4Nn0.2tvdnG9B0HdpUpV0xsOKKaATFkyuNVKMpzYE8sXBFtw',
-      }
-      */
-
     setIsSubmitting(true);
     const response = await fetch(
       "https://movieserp-default-rtdb.firebaseio.com/orders.json",

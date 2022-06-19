@@ -15,7 +15,7 @@ const Signup = (props) => {
     setIsErrorOnSave(true);
   };
 
-  const signupHandler = async (userData) => {
+  const signupHandler = async (clientData) => {
 
     setIsSaving(true);
 
@@ -26,9 +26,7 @@ const Signup = (props) => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          client: clientData[0],
-        }),
+        body: JSON.stringify(clientData[0]),
       }
     );
 

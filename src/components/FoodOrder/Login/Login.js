@@ -19,7 +19,7 @@ const Login = (props) => {
     setIsErrorOnValidate(true);
   };
 
-  const validateCredentialsHandler = async (userData) => {
+  const validateCredentialsHandler = async (clientData) => {
 
     setIsValidating(true);
     const response = await fetch(
