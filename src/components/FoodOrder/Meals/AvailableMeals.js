@@ -12,11 +12,6 @@ const AvailableMeals = () => {
 
   useEffect(() => {
     const fetchMeals = async () => {
-      /*
-      const response = await fetch("https://rorletsorder.herokuapp.com/meals", {
-        method: 'GET',
-      });
-      */
       const response = await fetch("http://localhost:3000/meals", {
         method: 'GET',
       });     
