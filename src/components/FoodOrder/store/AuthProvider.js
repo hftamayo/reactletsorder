@@ -1,98 +1,44 @@
 import { useReducer } from "react";
 import AuthContext from "./auth-context";
 
+/*
 const defaultAuthState = {
   isLoggedIn: false,
 };
-
-//en una funcion reducer siempre tenemos los 2 parametros:
-//state y action
-const cartReducer = (state, action) => {
-  if (action.type === "ADD") {
-    const updatedTotalAmount =
-      state.totalAmount + action.item.price * action.item.amount;
-    const existingCartItemIndex = state.items.findIndex(
-      (item) => item.id === action.item.id
-    );
-    const existingCartItem = state.items[existingCartItemIndex];
-    let updatedItem;
-    let updatedItems;
-
-    if (existingCartItem) {
-      updatedItem = {
-        ...existingCartItem,
-        amount: existingCartItem.amount + action.item.amount,
-      };
-      updatedItems = [...state.items];
-      updatedItems[existingCartItemIndex] = updatedItem;
-    } else {
-      updatedItems = state.items.concat(action.item);
-    }
-
-    return {
-      items: updatedItems,
-      totalAmount: updatedTotalAmount,
+*/
+export const AuthContextProvider = (props) => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+    useEffect(() => {
+      //sin el uso de useEffect, el chequeo de esta flag sería infinito
+      //la funcion es ejecutada DESPUES que el componente ha sido re-evaluado
+      const storeUserLoggedInInfo = localStorage.getItem('isLoggedIn');
+      if (storeUserLoggedInInfo === '1') {
+        setIsLoggedIn(true);
+      }
+    }, []);
+  
+    const logoutHandler = () => {
+        localStorage.removeItem('isLoggedIn');
+        setIsLoggedIn(false);
     };
-  }
-  if(action.type === 'REMOVE'){
-    const existingCartItemIndex = state.items.findIndex(
-      (item) => item.id === action.id
-    );
-    const existingItem = state.items[existingCartItemIndex];
-    const updatedTotalAmount = state.totalAmount - existingItem.price;
-    let updatedItems;
-    if(existingItem.amount === 1){
-      updatedItems = state.items.filter(item => item.id !== action.id);
-    } else {
-      const updatedItem = { ...existingItem, amount: existingItem.amount -1 };
-      updatedItems = [...state.items];
-      updatedItems[existingCartItemIndex] = updatedItem;
-    }
-    return{
-      items: updatedItems,
-      totalAmount: updatedTotalAmount
+  
+    const loginHandler = () => {
+      localStorage.setItem('isLoggedIn', '1');
+      setIsLoggedIn(true);
     };
-  }
-
-  if(action.type === 'CLEAR'){
-    return defaultCartState;
-  }
-
-
-  return defaultCartState;
-};
-
-const CartProvider = (props) => {
-  const [cartState, dispatchCartAction] = useReducer(
-    cartReducer,
-    defaultCartState
-  );
-
-  const addItemToCartHandler = (item) => {
-    dispatchCartAction({ type: "ADD", item: item });
+  
+    return (
+      <AuthContext.Provider
+        value={{
+          isLoggedIn: isLoggedIn,
+          onLogout: logoutHandler,
+          onLogin: loginHandler,
+        }}
+      >
+        {props.children}
+      </AuthContext.Provider>
+    );
   };
-
-  const removeItemFromCartHandler = (id) => {
-    dispatchCartAction({ type: "REMOVE", id: id });
-  };
-
-  const clearCartHandler = () => {
-    dispatchCartAction({type: "CLEAR" });
-  }
-
-  const cartContext = {
-    items: cartState.items,
-    totalAmount: cartState.totalAmount,
-    addItem: addItemToCartHandler,
-    removeItem: removeItemFromCartHandler,
-    clearCart: clearCartHandler
-  };
-
-  return (
-    <CartContext.Provider value={cartContext}>
-      {props.children}
-    </CartContext.Provider>
-  );
-};
-
+  
 export default AuthProvider;

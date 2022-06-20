@@ -4,6 +4,8 @@ const AuthContext = React.createContext({
   isLoggedIn: false,
   onLogout: () => {},
   onLogin: (email, password) => {}
+  initValidSession: () => {}
+
 });
 
 export const AuthContextProvider = (props) => {
