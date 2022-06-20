@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useEffect, useState } from "react";
 import AuthContext from "./auth-context";
 
 /*
@@ -7,7 +7,7 @@ const defaultAuthState = {
 };
 */
 
-export const AuthContextProvider = (props) => {
+export const AuthProvider = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
   
     useEffect(() => {

@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './containers/App';
-import { AuthContextProvider } from './components/FoodOrder/store/auth-context';
+import { AuthProvider } from './components/FoodOrder/store/AuthProvider';
 
 ReactDOM.render(
-  <AuthContextProvider>
+  <AuthProvider>
     <App />
-  </AuthContextProvider>,
+  </AuthProvider>,
   document.getElementById('root')
   
     //<App />,
