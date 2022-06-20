@@ -9,7 +9,7 @@ const Login = (props) => {
   const [isValidating, setIsValidating] = useState(false);
   const [didValidate, setDidValidate] = useState(false);
   const [isErrorOnValidate, setIsErrorOnValidate] = useState(false);
-  //const cartCtx = useContext(CartContext);
+  const authCtx = useContext(AuthContext);
 
   const errorOnValidateHandler = () => {
     setIsErrorOnValidate(true);
@@ -33,6 +33,7 @@ const Login = (props) => {
       setIsValidating(false);
       setIsCanceling(false);
       setDidValidate(true);
+      authCtx.loginHandler();
       //cartCtx.clearCart();
     }
   };
