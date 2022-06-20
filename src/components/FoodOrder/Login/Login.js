@@ -11,29 +11,22 @@ const Login = (props) => {
   const [isErrorOnValidate, setIsErrorOnValidate] = useState(false);
   //const cartCtx = useContext(CartContext);
 
-  const validatingHandler = () => {
-    setIsValidating(true);
-  };
-
   const errorOnValidateHandler = () => {
     setIsErrorOnValidate(true);
   };
 
   const validateCredentialsHandler = async (clientData) => {
-
     setIsValidating(true);
-    const response = await fetch(
-      "http://localhost:3000/auth/login",
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          client: clientData[0],
-        }),
-      }
-    );
+    const response = await fetch("http://localhost:3000/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: "hftamayo@ok.com",
+        password: "Letsorder01",
+      }),
+    });
     if (!response.ok) {
       errorOnValidateHandler();
     } else {
@@ -71,7 +64,7 @@ const Login = (props) => {
 
   const loginButtons = (
     <React.Fragment>
-      <button className={classes["button--alt"]} onClick={validatingHandler}>
+      <button className={classes["button--alt"]} onClick={validateCredentialsHandler}>
         Login
       </button>
       <button className={classes["button--alt"]} onClick={props.onClose}>
@@ -114,7 +107,7 @@ const Login = (props) => {
 
   return (
     <Modal onClose={props.onClose}>
-      {!isCanceling && !isValidating && !isErrorOnValidate && LoginModalContent}
+      {!isCanceling && !isValidating && !isErrorOnValidate && !didValidate && LoginModalContent}
       {isValidating && isValidatingModalContent}
       {isErrorOnValidate && errorOnValidateModalContent}
       {!isValidating && didValidate && didValidateModalContent}
