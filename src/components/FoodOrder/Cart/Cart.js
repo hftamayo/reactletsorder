@@ -30,12 +30,12 @@ const Cart = (props) => {
   const submitOrderHandler = async (userData) => {
 
     setIsSubmitting(true);
-    await fetch("https://movieserp-default-rtdb.firebaseio.com/orders.json", {
+    await fetch("http://localhost:3000/ordertemps", {//https://rorletsorder.herokuapp.com/ordertemps
       method: 'POST',
-      BODY: JSON.stringify({
-        user: userData,
-        orderedItems: cartCtx.items,
-      }),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(cartCtx.items[0]),//please include user: userData
     });
     setIsSubmitting(false);
     setDidSubmit(true);
