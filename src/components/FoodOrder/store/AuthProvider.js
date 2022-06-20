@@ -2,8 +2,7 @@ import { useReducer } from "react";
 import AuthContext from "./auth-context";
 
 const defaultAuthState = {
-  items: [],
-  totalAmount: 0,
+  isLoggedIn: false,
 };
 
 //en una funcion reducer siempre tenemos los 2 parametros:
