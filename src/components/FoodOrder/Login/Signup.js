@@ -16,19 +16,20 @@ const Signup = (props) => {
   };
 
   const signupHandler = async (clientData) => {
-
     setIsSaving(true);
 
-    const response = await fetch(
-      "http://localhost:3000/clients",
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(clientData[0]),
-      }
-    );
+    const response = await fetch("http://localhost:3000/clients", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstname: "herbert",
+        lastname: "hftamayo",
+        email: "ok@ok.com",
+        password: "Letsorder01",
+      }),
+    });
 
     if (!response.ok) {
       errorOnSignupHandler();
@@ -141,7 +142,7 @@ const Signup = (props) => {
 
   return (
     <Modal onClose={props.onClose}>
-      {!isCanceling && !isSaving && !isErrorOnSave && SignupModalContent}
+      {!isCanceling && !isSaving && !isErrorOnSave && !didSave && SignupModalContent}
       {isSaving && isSavingModalContent}
       {isErrorOnSave && errorOnSavingModalContent}
       {!isSaving && didSave && didSaveModalContent}
