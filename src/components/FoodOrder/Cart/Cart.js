@@ -7,19 +7,6 @@ import OrderDetails from "./OrderDetails";
 
 const Cart = (props) => {
 
-  const userData = {
-    "clientName": "Marvin the Martian",
-    "clientId": "123"
-  };
-  /*
-  const pruebaData = {
-    "ordersDate": "26-09-2021",
-    "ordersStatus": "ON KITCHEN",
-    "ordersDelivaddress": "Comunidad El Pino",
-    "idPayment": "1",        
-    "idUser": "1"
-  };
-  */
   const [isCheckout, setIsCheckout] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
@@ -41,17 +28,6 @@ const Cart = (props) => {
   };
 
   const submitOrderHandler = async (userData) => {
-        /*
-    await fetch("http://localhost:8080/api/orders", {  
-      credentials: "include",    
-      method: "POST",
-      body: JSON.stringify(pruebaData),
-      headers: {
-        'Content-Type': 'application/json',
-//        'Access-Control-Allow-Origin': '*',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MUBmYWtlbWFpbC5jb20iLCJleHAiOjE2MzI3NTAzODYsImlhdCI6MTYzMjcxNDM4Nn0.2tvdnG9B0HdpUpV0xsOKKaATFkyuNVKMpzYE8sXBFtw',
-      }
-      */ 
 
     setIsSubmitting(true);
     await fetch("https://movieserp-default-rtdb.firebaseio.com/orders.json", {
