@@ -6,6 +6,7 @@ const defaultAuthState = {
   isLoggedIn: false,
 };
 */
+
 export const AuthContextProvider = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
   
@@ -27,6 +28,11 @@ export const AuthContextProvider = (props) => {
       localStorage.setItem('isLoggedIn', '1');
       setIsLoggedIn(true);
     };
+
+    //handler temporal
+    const initValidSessionHandler = () => {
+        setIsLoggedIn(true);
+    }
   
     return (
       <AuthContext.Provider
@@ -34,6 +40,7 @@ export const AuthContextProvider = (props) => {
           isLoggedIn: isLoggedIn,
           onLogout: logoutHandler,
           onLogin: loginHandler,
+          onValidSession: initValidSessionHandler,
         }}
       >
         {props.children}
@@ -42,3 +49,4 @@ export const AuthContextProvider = (props) => {
   };
   
 export default AuthProvider;
+ 

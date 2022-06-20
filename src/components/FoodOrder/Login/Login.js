@@ -33,7 +33,7 @@ const Login = (props) => {
       setIsValidating(false);
       setIsCanceling(false);
       setDidValidate(true);
-      authCtx.loginHandler();
+      authCtx.onValidSession();
       //cartCtx.clearCart();
     }
   };
