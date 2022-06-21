@@ -1,10 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import Modal from "../UI/Modal";
 import classes from "./Login.module.css";
 import Input from "../UI/Input/Input";
 import AuthContext from "../store/auth-context";
 
 const Signup = (props) => {
+  const firstnameInputRef = useRef();
+  const lastnameInputRef = useRef();
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
+
   const [isCanceling, setIsCanceling] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [didSave, setDidSave] = useState(false);
@@ -17,6 +22,10 @@ const Signup = (props) => {
 
   const signupHandler = async (clientData) => {
     setIsSaving(true);
+    const enteredFirstname = firstnameInputRef.current.value;
+    const enteredLastname = lastnameInputRef.current.value;
+    const enteredEmail = emailInputRef.current.value;
+    const enteredPassword = passwordInputRef.current.value;
 
     const response = await fetch("http://localhost:3000/clients", {
       method: "POST",
@@ -24,10 +33,10 @@ const Signup = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        firstname: "herbert",
-        lastname: "hftamayo",
-        email: "ok@ok.com",
-        password: "Letsorder01",
+        firstname: enteredFirstname,
+        lastname: enteredLastname,
+        email: enteredEmail,
+        password: enteredPassword,
       }),
     });
 
@@ -84,7 +93,7 @@ const Signup = (props) => {
   const SignupModalContent = (
     <React.Fragment>
       <Input
-        //ref={emailInputRef}
+        ref={firstnameInputRef}
         id="firstname"
         label="First Name"
         type="text"
@@ -94,7 +103,7 @@ const Signup = (props) => {
         //onBlur={validateEmailHandler}
       />
       <Input
-        //ref={emailInputRef}
+        ref={lastnameInputRef}
         id="lastname"
         label="Last Name"
         type="text"
@@ -104,7 +113,7 @@ const Signup = (props) => {
         //onBlur={validateEmailHandler}
       />
       <Input
-        //ref={emailInputRef}
+        ref={emailInputRef}
         id="email"
         label="E-Mail"
         type="email"
@@ -115,7 +124,7 @@ const Signup = (props) => {
         //onBlur={validateEmailHandler}
       />
       <Input
-        //ref={passwordInputRef}
+        ref={passwordInputRef}
         id="paswword"
         label="Password"
         type="password"
