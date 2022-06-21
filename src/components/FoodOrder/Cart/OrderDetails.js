@@ -15,7 +15,6 @@ const OrderDetails = (props) => {
     cityDeliveryAddress: true,
     postalCodeDeliveryAddress: true,
     ordersDeliveryAddress: true,
-    clientMethodPayment: true,
   });
 
   //estos objetos sirven para no capturar todos los keystrokes durante dataInput
@@ -25,7 +24,6 @@ const OrderDetails = (props) => {
   const cityDeliveryAddressRef = useRef();
   const postalCodeDeliveryAddressRef = useRef();
   const ordersDeliveryAddressRef = useRef();
-  const clientMethodPaymentRef = useRef();
 
   const ConfirmHandler = (event) => {
     event.preventDefault();
@@ -53,9 +51,6 @@ const OrderDetails = (props) => {
     const enteredPostalCodeDeliveryAddressIsValid = !isEmpty(
       enteredPostalCodeDeliveryAddress
     );
-    const enteredClientMethodPaymentIsValid = !isEmpty(
-      enteredClientMethodPayment
-    );
 
     setFormInputsValidity({
       clientName: enteredNameIsValid,
@@ -64,7 +59,6 @@ const OrderDetails = (props) => {
       streetDeliveryAddress: enteredStreetDeliveryAddressIsValid,
       cityDeliveryAddress: enteredCityDeliveryAddressIsValid,
       postalCodeDeliveryAddress: enteredPostalCodeDeliveryAddressIsValid,
-      clientMethodPayment: enteredClientMethodPaymentIsValid,
     });
 
     const formIsValid =
@@ -73,8 +67,7 @@ const OrderDetails = (props) => {
       enteredOrdersDeliveryAddressIsValid &&
       enteredStreetDeliveryAddressIsValid &&
       enteredCityDeliveryAddressIsValid &&
-      enteredPostalCodeDeliveryAddressIsValid &&
-      enteredClientMethodPaymentIsValid;
+      enteredPostalCodeDeliveryAddressIsValid 
 
     if (!formIsValid) {
       return;
@@ -87,7 +80,6 @@ const OrderDetails = (props) => {
       streetDeliveryAddress: enteredStreetDeliveryAddress,
       cityDeliveryAddress: enteredCityDeliveryAddress,
       postalCodeDeliveryAddress: enteredPostalCodeDeliveryAddress,
-      clientMethodPayment: enteredClientMethodPayment,
     });
   };
 
@@ -108,9 +100,6 @@ const OrderDetails = (props) => {
   }`;
   const postalCodeDeliveryAddressControlClasses = `${classes.control} ${
     formInputsValidity.postalCodeDeliveryAddress ? "" : classes.invalid
-  }`;
-  const clientMethodPaymentControlClasses = `${classes.control} ${
-    formInputsValidity.clientMethodPayment ? "" : classes.invalid
   }`;
 
   return (
@@ -198,9 +187,6 @@ const OrderDetails = (props) => {
             <TextField {...params} variant="outlined" autoComplete="off" />
           )}
         />
-        {!formInputsValidity.clientMethodPayment && (
-          <p>Please choose a method of payment</p>
-        )}
       </div>
 
       <div className={classes.actions}>
