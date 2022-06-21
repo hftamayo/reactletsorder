@@ -35,7 +35,6 @@ const OrderDetails = (props) => {
     const enteredCityDeliveryAddress = cityDeliveryAddressRef.current.value;
     const enteredPostalCodeDeliveryAddress =
       postalCodeDeliveryAddressRef.current.value;
-    const enteredClientMethodPayment = clientMethodPaymentRef.current.value;
 
     const enteredNameIsValid = !isEmpty(enteredName);
     const enteredCellPhoneIsValid = !isNotNineChars(enteredCellPhone);
@@ -176,7 +175,7 @@ const OrderDetails = (props) => {
           <p>Please Enter a valid Postal Code</p>
         )}
       </div>
-      <div className={clientMethodPaymentControlClasses}>
+      <div className>
         <label htmlFor="clientMethodPayment">Method of Payment *</label>
         <Autocomplete
           id="clientMethodPayment"
