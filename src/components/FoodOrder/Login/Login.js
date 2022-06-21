@@ -18,7 +18,7 @@ const Login = (props) => {
     setIsErrorOnValidate(true);
   };
 
-  const validateCredentialsHandler = () => {
+  const validateCredentialsHandler = async () => {
     setIsValidating(true);
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
