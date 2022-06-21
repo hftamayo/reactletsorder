@@ -2,7 +2,6 @@ import React, { useContext, useState, useRef } from "react";
 import Modal from "../UI/Modal";
 import classes from "./Login.module.css";
 import Input from "../UI/Input/Input";
-import AuthContext from "../store/auth-context";
 
 const Signup = (props) => {
   const firstnameInputRef = useRef();
@@ -27,17 +26,21 @@ const Signup = (props) => {
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
 
+    const newClientData = {
+      firstname: enteredFirstname,
+      lastname: enteredLastname,
+      email: enteredEmail,
+      password: enteredPassword,
+    };
+
+    console.log(newClientData);
+
     const response = await fetch("http://localhost:3000/clients", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        firstname: enteredFirstname,
-        lastname: enteredLastname,
-        email: enteredEmail,
-        password: enteredPassword,
-      }),
+      body: JSON.stringify(newClientData),
     });
 
     if (!response.ok) {
