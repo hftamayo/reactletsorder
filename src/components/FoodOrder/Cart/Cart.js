@@ -45,8 +45,13 @@ const Cart = (props) => {
       },
       body: JSON.stringify(cartCtx.items[0]), //please include user: userData
     });
+    setIsSubmitting(false);
+    setIsCheckout(false);
+    setDidSubmit(true);
+    cartCtx.clearCart();
 
-    if (!response.ok) {
+    /* polish and get back on track this function
+        if (!response.ok) {
       errorOnSentOrderHandler();
     } else {
       setIsSubmitting(false);
@@ -54,6 +59,8 @@ const Cart = (props) => {
       setDidSubmit(true);
       cartCtx.clearCart();
     }
+
+    */
   };
 
   const cartItems = (
