@@ -1,13 +1,17 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import Modal from "../UI/Modal";
 import classes from "./Login.module.css";
 import Input from "../UI/Input/Input";
 
 const Signup = (props) => {
-  const firstnameInputRef = useRef();
   const lastnameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
+
+  const [firstNameValue, setFirstNameValue] = useState('');
+  const [lastNameValue, setLastNameValue] = useState('');  
+  const [emailValue, setEmailValue] = useState('');  
+  const [passwordValue, setPasswordValue] = useState('');  
 
   const [isCanceling, setIsCanceling] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -15,16 +19,32 @@ const Signup = (props) => {
   const [isErrorOnSave, setIsErrorOnSave] = useState(false);
   //const cartCtx = useContext(CartContext);
 
+  const firstNameValueHandler = (event) => {
+    setFirstNameValue(event.target.value);
+  }
+
+  const lastNameValueHandler = (event) => {
+    setLastNameValue(event.target.value);
+  }  
+
+  const emailValueHandler = (event) => {
+    setEmailValue(event.target.value);
+  }  
+
+  const passwordValueHandler = (event) => {
+    setPasswordValue(event.target.value);
+  }
+
   const errorOnSignupHandler = () => {
     setIsErrorOnSave(true);
   };
 
   const signupHandler = async () => {
     setIsSaving(true);
-    const enteredFirstname = firstnameInputRef.current.value;
-    const enteredLastname = lastnameInputRef.current.value;
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
+    const enteredFirstname = firstNameValue;
+    const enteredLastname = lastNameValue;
+    const enteredEmail = emailValue;
+    const enteredPassword = passwordValue;
 
     const newClientData = {
       firstname: enteredFirstname,
@@ -96,42 +116,46 @@ const Signup = (props) => {
   const SignupModalContent = (
     <React.Fragment>
       <Input
-        ref={firstnameInputRef}
+        onChange={firstNameValueHandler}
         id="firstname"
         label="First Name"
         type="text"
+        value={firstNameValue}
         //isValid={emailIsValid}
         //value={emailState.value}
         //onChange={emailChangeHandler}
         //onBlur={validateEmailHandler}
       />
       <Input
-        ref={lastnameInputRef}
+        onChange={lastNameValueHandler}
         id="lastname"
         label="Last Name"
         type="text"
+        value={lastNameValue}
         //isValid={emailIsValid}
         //value={emailState.value}
         //onChange={emailChangeHandler}
         //onBlur={validateEmailHandler}
       />
       <Input
-        ref={emailInputRef}
+        onChange={emailValueHandler}
         id="email"
         label="E-Mail"
         type="email"
         autodata="off"
+        value={emailValue}
         //isValid={emailIsValid}
         //value={emailState.value}
         //onChange={emailChangeHandler}
         //onBlur={validateEmailHandler}
       />
       <Input
-        ref={passwordInputRef}
+        onchange={passwordValueHandler}
         id="paswword"
         label="Password"
         type="password"
         autodata="new-password"
+        value={passwordValue}
         //isValid={passwordIsValid}
         //value={passwordState.value}
         //onChange={passwordChangeHandler}
