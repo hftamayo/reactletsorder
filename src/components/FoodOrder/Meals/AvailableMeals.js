@@ -15,8 +15,6 @@ const AvailableMeals = () => {
         method: "GET",
       });
 
-      //https://movieserp-default-rtdb.firebaseio.com/meals.json
-
       if (!response.ok) {
         throw new Error("The data could not be shown");
       }
