@@ -1,12 +1,12 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState } from "react";
 import Modal from "../UI/Modal";
 import classes from "./Login.module.css";
 import Input from "../UI/Input/Input";
 import AuthContext from "../store/auth-context";
 
 const Login = (props) => {
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
+  const [emailValue, setEmailValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
 
   const [isCanceling, setIsCanceling] = useState(false);
   const [isValidating, setIsValidating] = useState(false);
@@ -14,14 +14,22 @@ const Login = (props) => {
   const [isErrorOnValidate, setIsErrorOnValidate] = useState(false);
   const authCtx = useContext(AuthContext);
 
+  const emailValueHandler = (event) => {
+    setEmailValue(event.target.value);
+  }
+
+  const passwordValueHandler = (event) => {
+    setPasswordValue(event.target.value);
+  }
+
   const errorOnValidateHandler = () => {
     setIsErrorOnValidate(true);
   };
 
   const validateCredentialsHandler = async () => {
     setIsValidating(true);
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
+    const enteredEmail = emailValue;
+    const enteredPassword = passwordValue;
 
     const userCredentialsEntered = {
       email: enteredEmail,
@@ -89,7 +97,7 @@ const Login = (props) => {
   const LoginModalContent = (
     <React.Fragment>
       <Input
-        //ref={emailInputRef}
+        onChange={emailValueHandler}
         id="email"
         label="E-Mail"
         type="email"
@@ -100,7 +108,7 @@ const Login = (props) => {
         //onBlur={validateEmailHandler}
       />
       <Input
-        //ref={passwordInputRef}
+        onChange={passwordValueHandler}
         id="paswword"
         label="Password"
         type="password"
