@@ -19,7 +19,7 @@ const Signup = (props) => {
     setIsErrorOnSave(true);
   };
 
-  const signupHandler = async (clientData) => {
+  const signupHandler = () => {
     setIsSaving(true);
     const enteredFirstname = firstnameInputRef.current.value;
     const enteredLastname = lastnameInputRef.current.value;

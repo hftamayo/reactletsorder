@@ -1,10 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import Modal from "../UI/Modal";
 import classes from "./Login.module.css";
 import Input from "../UI/Input/Input";
 import AuthContext from "../store/auth-context";
 
 const Login = (props) => {
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
+  
   const [isCanceling, setIsCanceling] = useState(false);
   const [isValidating, setIsValidating] = useState(false);
   const [didValidate, setDidValidate] = useState(false);
