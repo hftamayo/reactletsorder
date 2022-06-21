@@ -4,14 +4,10 @@ import classes from "./Login.module.css";
 import Input from "../UI/Input/Input";
 
 const Signup = (props) => {
-  const lastnameInputRef = useRef();
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-
   const [firstNameValue, setFirstNameValue] = useState('');
   const [lastNameValue, setLastNameValue] = useState('');  
-  const [emailValue, setEmailValue] = useState('');  
-  const [passwordValue, setPasswordValue] = useState('');  
+  const [emailClientValue, setEmailClientValue] = useState('');  
+  const [passwordClientValue, setPasswordClientValue] = useState('');  
 
   const [isCanceling, setIsCanceling] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -27,12 +23,12 @@ const Signup = (props) => {
     setLastNameValue(event.target.value);
   }  
 
-  const emailValueHandler = (event) => {
-    setEmailValue(event.target.value);
+  const emailClientValueHandler = (event) => {
+    setEmailClientValue(event.target.value);
   }  
 
-  const passwordValueHandler = (event) => {
-    setPasswordValue(event.target.value);
+  const passwordClientValueHandler = (event) => {
+    setPasswordClientValue(event.target.value);
   }
 
   const errorOnSignupHandler = () => {
@@ -43,8 +39,8 @@ const Signup = (props) => {
     setIsSaving(true);
     const enteredFirstname = firstNameValue;
     const enteredLastname = lastNameValue;
-    const enteredEmail = emailValue;
-    const enteredPassword = passwordValue;
+    const enteredEmail = emailClientValue;
+    const enteredPassword = passwordClientValue;
 
     const newClientData = {
       firstname: enteredFirstname,
@@ -52,8 +48,6 @@ const Signup = (props) => {
       email: enteredEmail,
       password: enteredPassword,
     };
-
-    console.log(newClientData);
 
     const response = await fetch("http://localhost:3000/clients", {
       method: "POST",
@@ -138,24 +132,24 @@ const Signup = (props) => {
         //onBlur={validateEmailHandler}
       />
       <Input
-        onChange={emailValueHandler}
+        onChange={emailClientValueHandler}
         id="email"
         label="E-Mail"
         type="email"
         autodata="off"
-        value={emailValue}
+        value={emailClientValue}
         //isValid={emailIsValid}
         //value={emailState.value}
         //onChange={emailChangeHandler}
         //onBlur={validateEmailHandler}
       />
       <Input
-        onchange={passwordValueHandler}
+        onChange={passwordClientValueHandler}
         id="paswword"
         label="Password"
         type="password"
         autodata="new-password"
-        value={passwordValue}
+        value={passwordClientValue}
         //isValid={passwordIsValid}
         //value={passwordState.value}
         //onChange={passwordChangeHandler}
