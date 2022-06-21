@@ -7,7 +7,7 @@ import AuthContext from "../store/auth-context";
 const Login = (props) => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
-  
+
   const [isCanceling, setIsCanceling] = useState(false);
   const [isValidating, setIsValidating] = useState(false);
   const [didValidate, setDidValidate] = useState(false);
@@ -18,17 +18,22 @@ const Login = (props) => {
     setIsErrorOnValidate(true);
   };
 
-  const validateCredentialsHandler = async (clientData) => {
+  const validateCredentialsHandler = () => {
     setIsValidating(true);
+    const enteredEmail = emailInputRef.current.value;
+    const enteredPassword = passwordInputRef.current.value;
+
+    const userCredentialsEntered = {
+      email: enteredEmail,
+      password: enteredPassword,
+    }
+
     const response = await fetch("http://localhost:3000/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        email: "hftamayo@ok.com",
-        password: "Letsorder01",
-      }),
+      body: JSON.stringify(userCredentialsEntered),
     });
     if (!response.ok) {
       errorOnValidateHandler();
