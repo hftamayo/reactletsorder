@@ -37,16 +37,15 @@ const Cart = (props) => {
 
   const submitOrderHandler = async (userData) => {
     setIsSubmitting(true);
-    const response = await fetch(
-      "https://movieserp-default-rtdb.firebaseio.com/orders.json",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          user: userData,
-          orderedItems: cartCtx.items,
-        }),
-      }
-    );
+    await fetch("http://localhost:3000/ordertemps", {
+      //
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(cartCtx.items[0]), //please include user: userData
+    });
+
     if (!response.ok) {
       errorOnSentOrderHandler();
     } else {
@@ -70,6 +69,14 @@ const Cart = (props) => {
         />
       ))}
     </ul>
+  );
+
+  const cartEmptyButtons = (
+    <React.Fragment>
+      <button className={classes["button--alt"]} onClick={props.onClose}>
+        Close
+      </button>
+    </React.Fragment>
   );
 
   const cartContentButtons = (
@@ -96,7 +103,11 @@ const Cart = (props) => {
 
   const modalActions = (
     <div className={classes.actions}>
-      {!isCheckout && hasItems ? cartContentButtons : orderDetailsButtons}
+      {!isCheckout && hasItems
+        ? cartContentButtons
+        : !isCheckout && !hasItems
+        ? cartEmptyButtons
+        : orderDetailsButtons}
     </div>
   );
 
@@ -132,8 +143,7 @@ const Cart = (props) => {
         </button>
       </div>
     </React.Fragment>
-  );  
-
+  );
 
   const didSubmitModalContent = (
     <React.Fragment>
