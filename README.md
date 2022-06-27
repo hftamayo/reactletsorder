@@ -13,19 +13,32 @@ This is a demo project, my intention is to practice my code skills and apply rou
 
 ### Technical Stack ###
 * Front End: React JS 17.0.1, Functional Components, Hooks, Context-API
-* Back End: Firebase
+* Back End: Firebase, Ruby on Rails 6 (RestAPI)
 
-### Available Functions ###
+### Available Functions (firebasestable branch) ###
 * Read available products from Firebase
 * Add a single product to the shopping cart
 * Add a product with more than one item
 * Review the shopping cart and update/remove items
 * Add Order's details.
 
+### Available Functions (stable branch) ###
+* Read available products from Ruby on Rails RestAPI deployed on Heroku 
+* Add a single product to the shopping cart
+* Add a product with more than one item
+* Review the shopping cart and update/remove items
+* Add Order's details.
+* Place the order to Ruby on Rails RestAPI
 
-## Proof of Concept ##
-[This is demo of what's include in version 1](https://youtu.be/hWygYfoLA-E)
+## Branches explanation ##
+![branches.png](.img/branches.png?raw=true "Branches")
 
+## Proof of Concepts ##
+[Using Firebase](https://youtu.be/hWygYfoLA-E)
+
+[Using Rails deployed on Heroku](https://youtu.be/dnS5e2KFCEQ)
+
+[SignUp and SignIn on local environment](https://youtu.be/j8ciK8UDCh0)
 
 ## The coding process ##
 [I've uploaded to Youtube the coding process of V1](https://www.youtube.com/playlist?list=PLsQR_Tmsj29n1PgTcssiHI2AKNOi33i4D)
