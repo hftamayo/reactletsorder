@@ -31,7 +31,7 @@ This is a demo project, my intention is to practice my code skills and apply rou
 * Place the order to Ruby on Rails RestAPI
 
 ## Branches explanation ##
-![branches.png](.img/branches.png?raw=true "Branches")
+![branches.png](img/branches.png?raw=true "Branches")
 
 ## Proof of Concepts ##
 [Using Firebase](https://youtu.be/hWygYfoLA-E)
