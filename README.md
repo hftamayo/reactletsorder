@@ -36,7 +36,7 @@ This is a demo project, my intention is to practice my code skills and apply rou
 ## Proof of Concepts ##
 [Using Firebase](https://youtu.be/hWygYfoLA-E)
 
-[Using Rails deployed on Heroku](https://youtu.be/dnS5e2KFCEQ)
+[Rails deployed on Heroku](https://youtu.be/dnS5e2KFCEQ)
 
 [SignUp and SignIn on local environment](https://youtu.be/j8ciK8UDCh0)
 
