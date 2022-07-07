@@ -1,6 +1,11 @@
 import { useRef, useState } from "react";
 import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel
+} from "@material-ui/core";
 import classes from "./Orderdetails.module.css";
 
 const isEmpty = (value) => value.trim() === "";
@@ -17,6 +22,8 @@ const OrderDetails = (props) => {
     ordersDeliveryAddress: true,
   });
 
+  const [mopayment, setMopayment] = useState("");
+
   //estos objetos sirven para no capturar todos los keystrokes durante dataInput
   const clientNameRef = useRef();
   const clientCellPhoneRef = useRef();
@@ -24,6 +31,8 @@ const OrderDetails = (props) => {
   const cityDeliveryAddressRef = useRef();
   const postalCodeDeliveryAddressRef = useRef();
   const ordersDeliveryAddressRef = useRef();
+
+  const handlerMopaymentChange = (e) => setMopayment(e.target.value);
 
   const ConfirmHandler = (event) => {
     event.preventDefault();
@@ -66,7 +75,7 @@ const OrderDetails = (props) => {
       enteredOrdersDeliveryAddressIsValid &&
       enteredStreetDeliveryAddressIsValid &&
       enteredCityDeliveryAddressIsValid &&
-      enteredPostalCodeDeliveryAddressIsValid 
+      enteredPostalCodeDeliveryAddressIsValid;
 
     if (!formIsValid) {
       return;
@@ -176,16 +185,19 @@ const OrderDetails = (props) => {
         )}
       </div>
       <div className>
-        <label htmlFor="clientMethodPayment">Method of Payment *</label>
-        <Autocomplete
+
+        <FormControl>
+          <label htmlFor="clientMethodPayment">Method of Payment *</label>
+          <Select 
+          onChange={handlerMopaymentChange}
           id="clientMethodPayment"
-          options={paymentMethods}
           style={{ width: 300 }}
-          autoHighlight
-          renderInput={(params) => (
-            <TextField {...params} variant="outlined" autoComplete="off" />
-          )}
-        />
+          >
+            <MenuItem value={1}>Cash</MenuItem>
+            <MenuItem value={2}>Credit</MenuItem>
+            <MenuItem value={3}>Crypto</MenuItem>                        
+          </Select>
+        </FormControl>
       </div>
 
       <div className={classes.actions}>
