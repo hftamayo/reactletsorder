@@ -10,7 +10,7 @@ import classes from "./Orderdetails.module.css";
 
 const isEmpty = (value) => value.trim() === "";
 const isNotNineChars = (value) => value.trim().length !== 9;
-const paymentMethods = ["Cash", "Credit", "Crypto"];
+//const paymentMethods = ["Cash", "Credit", "Crypto"];
 
 const OrderDetails = (props) => {
   const [formInputsValidity, setFormInputsValidity] = useState({
@@ -20,6 +20,8 @@ const OrderDetails = (props) => {
     cityDeliveryAddress: true,
     postalCodeDeliveryAddress: true,
     ordersDeliveryAddress: true,
+    methodOfPayment: true,
+
   });
 
   const [mopayment, setMopayment] = useState("");
@@ -31,6 +33,7 @@ const OrderDetails = (props) => {
   const cityDeliveryAddressRef = useRef();
   const postalCodeDeliveryAddressRef = useRef();
   const ordersDeliveryAddressRef = useRef();
+  const methodOfPaymentRef = useRef();
 
   const handlerMopaymentChange = (e) => setMopayment(e.target.value);
 
@@ -44,6 +47,7 @@ const OrderDetails = (props) => {
     const enteredCityDeliveryAddress = cityDeliveryAddressRef.current.value;
     const enteredPostalCodeDeliveryAddress =
       postalCodeDeliveryAddressRef.current.value;
+    const enteredMethodOfPayment = mopayment;
 
     const enteredNameIsValid = !isEmpty(enteredName);
     const enteredCellPhoneIsValid = !isNotNineChars(enteredCellPhone);
@@ -60,6 +64,8 @@ const OrderDetails = (props) => {
       enteredPostalCodeDeliveryAddress
     );
 
+    const enteredMethodOfPaymentIsValid = !isEmpty(enteredMethodOfPayment);
+
     setFormInputsValidity({
       clientName: enteredNameIsValid,
       clientCellPhone: enteredCellPhoneIsValid,
@@ -67,6 +73,7 @@ const OrderDetails = (props) => {
       streetDeliveryAddress: enteredStreetDeliveryAddressIsValid,
       cityDeliveryAddress: enteredCityDeliveryAddressIsValid,
       postalCodeDeliveryAddress: enteredPostalCodeDeliveryAddressIsValid,
+      methodOfPayment: enteredMethodOfPaymentIsValid,
     });
 
     const formIsValid =
@@ -75,7 +82,8 @@ const OrderDetails = (props) => {
       enteredOrdersDeliveryAddressIsValid &&
       enteredStreetDeliveryAddressIsValid &&
       enteredCityDeliveryAddressIsValid &&
-      enteredPostalCodeDeliveryAddressIsValid;
+      enteredPostalCodeDeliveryAddressIsValid && 
+      enteredMethodOfPaymentIsValid;
 
     if (!formIsValid) {
       return;
@@ -88,6 +96,7 @@ const OrderDetails = (props) => {
       streetDeliveryAddress: enteredStreetDeliveryAddress,
       cityDeliveryAddress: enteredCityDeliveryAddress,
       postalCodeDeliveryAddress: enteredPostalCodeDeliveryAddress,
+      methodOfPayment: enteredMethodOfPayment,
     });
   };
 
@@ -108,6 +117,9 @@ const OrderDetails = (props) => {
   }`;
   const postalCodeDeliveryAddressControlClasses = `${classes.control} ${
     formInputsValidity.postalCodeDeliveryAddress ? "" : classes.invalid
+  }`;
+  const methodOfPaymentControlClasses = `${classes.control} ${
+    formInputsValidity.methodOfPayment ? "" : classes.invalid
   }`;
 
   return (
@@ -192,12 +204,16 @@ const OrderDetails = (props) => {
           onChange={handlerMopaymentChange}
           id="clientMethodPayment"
           style={{ width: 300 }}
+          ref={methodOfPaymentRef}
           >
             <MenuItem value={1}>Cash</MenuItem>
             <MenuItem value={2}>Credit</MenuItem>
             <MenuItem value={3}>Crypto</MenuItem>                        
           </Select>
         </FormControl>
+        {!formInputsValidity.methodOfPayment && (
+          <p>Please Choose a Method of Payment</p>
+        )}        
       </div>
 
       <div className={classes.actions}>
