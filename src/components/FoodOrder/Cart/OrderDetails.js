@@ -197,7 +197,7 @@ const OrderDetails = (props) => {
         )}
       </div>
       <div className={methodOfPaymentControlClasses}>
-        <FormControl>
+
           <label htmlFor="clientMethodPayment">Method of Payment *</label>
           <Select 
           onChange={handlerMopaymentChange}
@@ -209,7 +209,7 @@ const OrderDetails = (props) => {
             <MenuItem value={2}>Credit</MenuItem>
             <MenuItem value={3}>Crypto</MenuItem>                        
           </Select>
-        </FormControl>
+
         {!formInputsValidity.methodOfPayment && (
           <p>Please Choose a Method of Payment</p>
         )}        
