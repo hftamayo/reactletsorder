@@ -196,8 +196,7 @@ const OrderDetails = (props) => {
           <p>Please Enter a valid Postal Code</p>
         )}
       </div>
-      <div className>
-
+      <div className={methodOfPaymentControlClasses}>
         <FormControl>
           <label htmlFor="clientMethodPayment">Method of Payment *</label>
           <Select 
