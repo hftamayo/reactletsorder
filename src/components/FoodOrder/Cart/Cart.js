@@ -43,7 +43,7 @@ const Cart = (props) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(cartCtx.items[0]), //please include user: userData
+      body: JSON.stringify(cartCtx.items), //please include user: userData
     });
     setIsSubmitting(false);
     setIsCheckout(false);

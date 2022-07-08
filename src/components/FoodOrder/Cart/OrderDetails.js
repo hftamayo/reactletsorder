@@ -10,6 +10,7 @@ import classes from "./Orderdetails.module.css";
 
 const isEmpty = (value) => value.trim() === "";
 const isNotNineChars = (value) => value.trim().length !== 9;
+const notValidPayment = (value) => value === "0";
 //const paymentMethods = ["Cash", "Credit", "Crypto"];
 
 const OrderDetails = (props) => {
@@ -24,7 +25,7 @@ const OrderDetails = (props) => {
 
   });
 
-  const [mopayment, setMopayment] = useState("");
+  const [mopayment, setMopayment] = useState(0);
 
   //estos objetos sirven para no capturar todos los keystrokes durante dataInput
   const clientNameRef = useRef();
@@ -64,7 +65,7 @@ const OrderDetails = (props) => {
       enteredPostalCodeDeliveryAddress
     );
 
-    const enteredMethodOfPaymentIsValid = !isEmpty(enteredMethodOfPayment);
+    const enteredMethodOfPaymentIsValid = !notValidPayment(enteredMethodOfPayment);
 
     setFormInputsValidity({
       clientName: enteredNameIsValid,
@@ -200,6 +201,7 @@ const OrderDetails = (props) => {
 
           <label htmlFor="clientMethodPayment">Method of Payment *</label>
           <Select 
+          defaultValue="0"
           onChange={handlerMopaymentChange}
           id="clientMethodPayment"
           style={{ width: 300 }}
