@@ -28,6 +28,10 @@ const Cart = (props) => {
   };
 
   const submitOrderHandler = async (userData) => {
+    const rawData = cartCtx.items;
+    //removing id field from the array, the backend won't need it
+    const cleanData = rawData.map(({id, ...restOfTheFields}) => restOfTheFields);
+    console.log(JSON.stringify(cleanData));
 
     setIsSubmitting(true);
     await fetch("http://localhost:3000/ordertemps", {
@@ -35,7 +39,9 @@ const Cart = (props) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(cartCtx.items[0]),//please include user: userData
+      body: JSON.stringify({
+        ordertemp: cleanData,
+      }),//please include user: userData
     });
     setIsSubmitting(false);
     setDidSubmit(true);
