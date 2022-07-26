@@ -110,6 +110,9 @@ const Cart = (props) => {
       <button className={classes["button--alt"]} onClick={showCartHandler}>
         Cart's Content
       </button>
+      <button className={classes["button--alt"]} onClick={showCartHandler}>
+        Confirm Order
+      </button>      
     </React.Fragment>
   );
 
