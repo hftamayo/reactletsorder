@@ -217,9 +217,6 @@ const OrderDetails = (props) => {
         )}        
       </div>
 
-      <div className={classes.actions}>
-        <button>Confirm Order</button>
-      </div>
     </form>
   );
 };

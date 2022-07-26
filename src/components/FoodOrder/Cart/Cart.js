@@ -93,25 +93,25 @@ const Cart = (props) => {
 
   const cartContentButtons = (
     <React.Fragment>
-      <button className={classes["button--alt"]} onClick={props.onClose}>
-        Close
-      </button>
       <button className={classes["button--alt"]} onClick={orderHandler}>
         Order's Details
       </button>
+      <button className={classes["button--alt"]} onClick={props.onClose}>
+        Close
+      </button>      
     </React.Fragment>
   );
 
   const orderDetailsButtons = (
     <React.Fragment>
-      <button className={classes["button--alt"]} onClick={props.onClose}>
-        Close
-      </button>
+      <button className={classes["button--alt"]} onClick={submitOrderHandler}>
+        Confirm Order
+      </button>            
       <button className={classes["button--alt"]} onClick={showCartHandler}>
         Cart's Content
       </button>
-      <button className={classes["button--alt"]} onClick={showCartHandler}>
-        Confirm Order
+      <button className={classes["button--alt"]} onClick={props.onClose}>
+        Close
       </button>      
     </React.Fragment>
   );
@@ -140,7 +140,7 @@ const Cart = (props) => {
   const OrderDetailsModalContent = (
     <React.Fragment>
       {isCheckout && (
-        <OrderDetails onConfirm={submitOrderHandler} onCancel={props.onClose} />
+        <OrderDetails />
       )}
       {modalActions}
     </React.Fragment>
