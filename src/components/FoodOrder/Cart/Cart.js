@@ -37,13 +37,18 @@ const Cart = (props) => {
 
   const submitOrderHandler = async (userData) => {
     setIsSubmitting(true);
+    const rawData = cartCtx.items;
+    const cleanData = rawData.map(({id, ...restOfTheFields}) => restOfTheFields);
+
     await fetch("http://localhost:3000/ordertemps", {
       //
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(cartCtx.items[0]), //please include user: userData
+      body: JSON.stringify({
+        ordertemp: cleanData,
+       }), //please include user: userData
     });
     setIsSubmitting(false);
     setIsCheckout(false);
