@@ -140,8 +140,12 @@ const Cart = (props) => {
     </React.Fragment>
   );
 
-  const isSubmittingModalContent = <p>Sending order data...</p>;
   /* incluir transaccion para verificar si es exitoso o hubo algun error */
+  const isSubmittingModalContent = (
+    <React.Fragment>
+      <p>Sending order data...</p>
+    </React.Fragment>
+  );
 
   const errorOnSentOrderModalContent = (
     <React.Fragment>
@@ -168,8 +172,8 @@ const Cart = (props) => {
   return (
     <Modal onClose={props.onClose}>
       {!isSubmitting && !didSubmit && !isCheckout && CartModalContent}
-      {isCheckout && OrderDetailsModalContent}
-      {isSubmitting && isSubmittingModalContent}
+      {isCheckout && !isSubmitting && OrderDetailsModalContent}
+      {isSubmitting && !isErrorOnSentOrder && !didSubmit && isSubmittingModalContent}
       {isErrorOnSentOrder && errorOnSentOrderModalContent}
       {!isSubmitting && didSubmit && didSubmitModalContent}
     </Modal>
