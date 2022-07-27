@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import LogoutIcon from "../Login/LogoutIcon";
+import SignupIcon from "./SignupIcon";
+import UserIcon from "./UserIcon";
 import classes from "./HeaderCartButton.module.css";
 
 const LogoutButton = (props) => {
