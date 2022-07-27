@@ -4,6 +4,8 @@ import UserIcon from "./UserIcon";
 import classes from "./HeaderCartButton.module.css";
 
 const HeaderActionButton = (props) => {
+  const userIcon = props.userIcon;
+  const requestedLabel = props.requestedLabel;   
   const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
 
   const btnClasses = `${classes.button} ${
@@ -23,9 +25,9 @@ const HeaderActionButton = (props) => {
   return (
     <button className={btnClasses} onClick={props.onClick}>
       <span className={classes.icon}>
-        <LogoutIcon />
+        {userIcon === 1 ? <UserIcon /> : <SignupIcon />}
       </span>
-      <span>Logout</span>
+      <span>{requestedLabel}</span>
     </button>
   );
 };
