@@ -3,7 +3,7 @@ import SignupIcon from "./SignupIcon";
 import UserIcon from "./UserIcon";
 import classes from "./HeaderCartButton.module.css";
 
-const LogoutButton = (props) => {
+const HeaderActionButton = (props) => {
   const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
 
   const btnClasses = `${classes.button} ${
@@ -30,4 +30,4 @@ const LogoutButton = (props) => {
   );
 };
 
-export default LogoutButton;
+export default HeaderActionButton;

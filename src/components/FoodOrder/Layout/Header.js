@@ -4,6 +4,7 @@ import HeaderCartButton from "./HeaderCartButton";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import SignupButton from "./SignupButton";
+import HeaderActionButton from "./Buttons/HeaderActionButton";
 import mealsImage from "../assets/banner.jpg";
 import classes from "./Header.module.css";
 
