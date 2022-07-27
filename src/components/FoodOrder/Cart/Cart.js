@@ -40,7 +40,7 @@ const Cart = (props) => {
     const rawData = cartCtx.items;
     const cleanData = rawData.map(({id, ...restOfTheFields}) => restOfTheFields);
 
-    await fetch("http://localhost:3000/ordertemps", {
+    const response = await fetch("http://localhost:3000/ordertemps", {
       //
       method: "POST",
       headers: {
@@ -50,22 +50,16 @@ const Cart = (props) => {
         ordertemp: cleanData,
        }), //please include user: userData
     });
-    setIsSubmitting(false);
-    setIsCheckout(false);
-    setDidSubmit(true);
-    cartCtx.clearCart();
 
-    /* polish and get back on track this function
-        if (!response.ok) {
+    if (!response.ok){
       errorOnSentOrderHandler();
-    } else {
+    }
+    else{
       setIsSubmitting(false);
       setIsCheckout(false);
       setDidSubmit(true);
       cartCtx.clearCart();
     }
-
-    */
   };
 
   const cartItems = (
