@@ -17,12 +17,12 @@ const Header = (props) => {
         {authCtx.isLoggedIn ? (
           <div className={classes.btncontainer}>
           <HeaderCartButton onClick={props.onShowCart} />
-          <LogoutButton />
+          <HeaderActionButton userIcon={1} requestedLabel="Logout" />
           </div>
         ) : (
           <div className={classes.btncontainer}>
-            <LoginButton onClick={props.onShowLogin} />
-            <SignupButton onClick={props.onShowSignup} />
+            <HeaderActionButton onClick={props.onShowLogin} userIcon={1} requestedLabel="Login" />
+            <HeaderActionButton onClick={props.onShowSignup} userIcon={0} requestedLabel="SignUp" />
           </div>
         )}
       </header>
