@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import Modal from "../UI/Modal";
+import Modal from "../UI/Modal/Modal";
 import classes from "./Login.module.css";
 import Input from "../UI/Input/Input";
 import AuthContext from "../store/auth-context";
