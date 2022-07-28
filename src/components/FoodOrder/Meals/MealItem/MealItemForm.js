@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import Input from "../../UI/Input";
+import Spinner from "../../UI/Spinner/Spinner";
 import classes from "./MealItemForm.module.css";
 
 const MealItemForm = (props) => {
@@ -24,7 +24,7 @@ const MealItemForm = (props) => {
 
   return (
     <form className={classes.form} onSubmit={submitHandler}>
-      <Input
+      <Spinner
         ref={amountInputRef}
         label="Amount"
         input={{
