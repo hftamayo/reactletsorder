@@ -35,7 +35,7 @@ const FoodOrder = () => {
     setSignupIsShown(false);
   };  
 
-  const requestShowHandler = () => {
+  const requestLogoutHandler = () => {
     /*
     steps to consider:
     1. products in the cart
