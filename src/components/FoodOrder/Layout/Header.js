@@ -1,7 +1,7 @@
 import React, { useContext, Fragment } from "react";
 import AuthContext from "../store/auth-context";
-import HeaderCartButton from "./Buttons/HeaderCartButton";
-import HeaderActionButton from "./Buttons/HeaderActionButton";
+import HeaderCartButton from "../UI/Buttons/HeaderCartButton";
+import HeaderActionButton from "../UI/Buttons/HeaderActionButton";
 import mealsImage from "../assets/banner.jpg";
 import classes from "./Header.module.css";
 
