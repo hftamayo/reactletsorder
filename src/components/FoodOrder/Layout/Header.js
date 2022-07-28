@@ -14,7 +14,7 @@ const Header = (props) => {
         {authCtx.isLoggedIn ? (
           <div className={classes.btncontainer}>
           <HeaderCartButton onClick={props.onShowCart} />
-          <HeaderActionButton userIcon={1} requestedLabel="Logout" />
+          <HeaderActionButton onClick={props.onRequestLogout} userIcon={1} requestedLabel="Logout" />
           </div>
         ) : (
           <div className={classes.btncontainer}>

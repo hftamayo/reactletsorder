@@ -35,6 +35,20 @@ const FoodOrder = () => {
     setSignupIsShown(false);
   };  
 
+  const requestShowHandler = () => {
+    /*
+    steps to consider:
+    1. products in the cart
+    2. orders not place them
+    */
+
+    /*
+    source code example:
+      const authCtx = useContext(AuthContext);
+      <Button onClick={authCtx.onLogout}>Logout</Button>
+    */
+  }
+
 
   return (
     <CartProvider>
@@ -45,6 +59,7 @@ const FoodOrder = () => {
         onShowCart={showCartHandler}
         onShowLogin={showLoginHandler}
         onShowSignup={showSignupHandler}
+        onRequestLogout={requestLogoutHandler}
       />
       <main>
         <Meals />
